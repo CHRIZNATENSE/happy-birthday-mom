@@ -4,70 +4,612 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
+    background: #090706;
+    color: #f8eee5;
+    font-family: "Montserrat", sans-serif;
+    overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(130, 82, 45, 0.18),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            #0b0807,
+            #17100d,
+            #080605
+        );
+
+    z-index: -2;
+}
+
+#particles {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 10;
+}
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen {
     min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
 
-    font-family: Arial, sans-serif;
+    padding: 60px 20px;
 
-    background: linear-gradient(135deg, #ffd6e7, #fff1f7);
+    opacity: 1;
 
-    text-align: center;
-    color: #5a2945;
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
 }
 
-main {
-    width: 90%;
-    max-width: 700px;
-    padding: 50px 25px;
+.screen.hidden {
+    display: none;
+    opacity: 0;
+}
 
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 25px;
+.screen.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}
 
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+h1,
+h2,
+h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
 }
 
 h1 {
-    font-size: 3rem;
-    margin-bottom: 15px;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
 }
 
-h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-p {
-    font-size: 1.2rem;
+.eyebrow {
+    letter-spacing: 5px;
+    font-size: 11px;
+    color: #d7ae76;
     margin-bottom: 25px;
 }
 
+.small-text {
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #c9a77c;
+}
+
+.subtitle {
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    color: #c9a77c;
+    font-size: 20px;
+    margin-top: 15px;
+}
+
+.gold-line {
+    width: 70px;
+    height: 1px;
+
+    background: #c9a77c;
+
+    margin: 30px auto;
+}
+
+/* =========================
+   OPENING
+========================= */
+
+.opening-content {
+    text-align: center;
+
+    animation: entrance 2s ease forwards;
+}
+
+.opening-content h1 {
+    margin-top: 30px;
+}
+
+.opening-content h2 {
+    font-size: clamp(4rem, 10vw, 8rem);
+
+    font-style: italic;
+
+    color: #d9b27b;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
 button {
-    border: none;
-    padding: 15px 25px;
+    font-family: "Montserrat", sans-serif;
+}
 
-    font-size: 1rem;
-    font-weight: bold;
+#openBtn,
+.next-btn {
+    margin-top: 45px;
 
-    color: white;
-    background: #d85a8a;
+    padding: 16px 28px;
 
-    border-radius: 30px;
+    background: transparent;
+
+    color: #ead8c1;
+
+    border: 1px solid rgba(201, 167, 124, 0.6);
+
+    cursor: pointer;
+
+    letter-spacing: 2px;
+
+    transition: all 0.4s ease;
+}
+
+#openBtn:hover,
+.next-btn:hover {
+    background: #c9a77c;
+    color: #100b08;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 40px rgba(201, 167, 124, 0.25);
+}
+
+#openBtn span:last-child {
+    margin-left: 15px;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+.content {
+    max-width: 850px;
+
+    text-align: center;
+}
+
+.intro-text {
+    max-width: 600px;
+
+    margin: auto;
+
+    color: #c9beb5;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 20px;
+
+    line-height: 1.9;
+}
+
+/* =========================
+   LETTER
+========================= */
+
+.letter-container {
+    max-width: 850px;
+
+    text-align: center;
+}
+
+.letter-card {
+    position: relative;
+
+    padding: 55px 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.05),
+            rgba(255,255,255,0.015)
+        );
+
+    border: 1px solid rgba(201, 167, 124, 0.3);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,0.5);
+}
+
+.letter-card h2 {
+    font-size: 45px;
+
+    margin-bottom: 30px;
+}
+
+.letter-card p {
+    color: #d4c8be;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 18px;
+
+    line-height: 1.9;
+
+    margin-bottom: 20px;
+}
+
+.signature {
+    margin-top: 35px;
+
+    color: #d7ae76 !important;
+
+    font-style: italic;
+}
+
+.signature-name {
+    font-size: 14px !important;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.wide {
+    max-width: 1100px;
+}
+
+.gallery {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-top: 50px;
+}
+
+.photo-card {
+    height: 250px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(201,167,124,0.25);
+
+    position: relative;
+
+    background: #100b08;
+}
+
+.photo-card.large {
+    grid-column: span 2;
+    grid-row: span 2;
+
+    height: 512px;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.8s ease,
+        filter 0.8s ease;
+
+    filter: brightness(0.82);
+}
+
+.photo-card:hover img {
+    transform: scale(1.08);
+
+    filter: brightness(1);
+}
+
+/* =========================
+   FAMILY
+========================= */
+
+.family-container {
+    width: 100%;
+    max-width: 900px;
+
+    text-align: center;
+}
+
+.slideshow {
+    position: relative;
+
+    width: 100%;
+
+    height: 60vh;
+
+    max-height: 600px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(201,167,124,0.35);
+
+    margin-top: 45px;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,0.6);
+}
+
+.slideshow img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        opacity 0.8s ease,
+        transform 5s ease;
+
+    animation: slowZoom 8s infinite alternate;
+}
+
+.slide-overlay {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 60px 30px 30px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,0.8)
+        );
+}
+
+.slide-overlay p {
+    font-family: "Playfair Display", serif;
+
+    font-style: italic;
+
+    font-size: 20px;
+}
+
+.slide-controls {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 30px;
+
+    margin-top: 20px;
+}
+
+.slide-controls button {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    border: 1px solid #c9a77c;
+
+    background: transparent;
+
+    color: #c9a77c;
+
+    font-size: 25px;
 
     cursor: pointer;
 
     transition: 0.3s;
 }
 
-button:hover {
-    transform: scale(1.08);
-    background: #b83f70;
+.slide-controls button:hover {
+    background: #c9a77c;
+
+    color: #111;
 }
 
-#message {
-    margin-top: 30px;
-    font-size: 1.3rem;
-    font-weight: bold;
+#slideNumber {
+    color: #c9a77c;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final-content {
+    text-align: center;
+
+    max-width: 750px;
+
+    position: relative;
+}
+
+.flower {
+    font-size: 70px;
+
+    margin-bottom: 30px;
+
+    animation:
+        floating 3s ease-in-out infinite;
+}
+
+.final-content h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+}
+
+.final-content h2 {
+    font-size: clamp(4rem, 9vw, 7rem);
+
+    color: #d7ae76;
+
+    font-style: italic;
+}
+
+.final-message {
+    font-family: "Playfair Display", serif;
+
+    color: #d5c8bd;
+
+    font-size: 19px;
+
+    line-height: 1.8;
+
+    margin: 20px auto;
+
+    max-width: 600px;
+}
+
+.final-content h3 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 24px;
+
+    margin-top: 40px;
+
+    color: #d7ae76;
+}
+
+/* =========================
+   PARTICLES
+========================= */
+
+.particle {
+    position: fixed;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #d7ae76;
+
+    opacity: 0;
+
+    animation: sparkle 5s linear forwards;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes entrance {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes floating {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+}
+
+@keyframes slowZoom {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.06);
+    }
+
+}
+
+@keyframes sparkle {
+
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+
+    20% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-120px);
+    }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .screen {
+        padding: 40px 15px;
+    }
+
+    .letter-card {
+        padding: 35px 25px;
+    }
+
+    .letter-card p {
+        font-size: 16px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .photo-card {
+        height: 200px;
+    }
+
+    .photo-card.large {
+        grid-column: span 2;
+        grid-row: span 1;
+
+        height: 300px;
+    }
+
+    .slideshow {
+        height: 55vh;
+    }
+
 }
