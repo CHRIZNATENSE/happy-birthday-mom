@@ -1,81 +1,125 @@
-/* =========================
-BIRTHDAY SURPRISE
-Aanie Webb
-========================= */
+/* =====================================
+AANIE WEBB BIRTHDAY SURPRISE
+===================================== */
 
-/* =========================
+/* =====================================
 SCREEN NAVIGATION
-========================= */
+===================================== */
 
 const screens =
 document.querySelectorAll(".screen");
 
-function showScreen(id) {
+function showScreen(screenId) {
 
 ```
+const target =
+    document.getElementById(screenId);
+
+
+if (!target) {
+
+    console.error(
+        "Screen not found:",
+        screenId
+    );
+
+    return;
+
+}
+
+
+/* Hide every screen */
+
 screens.forEach(screen => {
 
     screen.classList.add("hidden");
 
 });
 
-const target =
-    document.getElementById(id);
+
+/* Show requested screen */
 
 target.classList.remove("hidden");
+
+
+/* Scroll to top */
 
 window.scrollTo({
     top: 0,
     behavior: "smooth"
 });
 
-createParticles(20);
+
+/* Add some particles */
+
+createParticles(25);
 ```
 
 }
 
-/* =========================
-OPEN SURPRISE
-========================= */
+/* =====================================
+OPENING BUTTON
+===================================== */
 
-const openBtn =
+const openButton =
 document.getElementById("openBtn");
 
-openBtn.addEventListener("click", () => {
+if (openButton) {
 
 ```
-createParticles(60);
+openButton.addEventListener(
+    "click",
+    function () {
 
-showScreen("intro");
+        createParticles(60);
+
+        showScreen("intro");
+
+    }
+);
 ```
 
-});
+}
 
-/* =========================
-NEXT BUTTONS
-========================= */
+/* =====================================
+ALL NEXT BUTTONS
+===================================== */
 
 const nextButtons =
-document.querySelectorAll(".next-btn");
+document.querySelectorAll(
+".next-btn"
+);
 
 nextButtons.forEach(button => {
 
 ```
-button.addEventListener("click", () => {
+button.addEventListener(
+    "click",
+    function () {
 
-    const nextScreen =
-        button.dataset.next;
+        const destination =
+            this.getAttribute(
+                "data-next"
+            );
 
-    showScreen(nextScreen);
 
-});
+        if (destination) {
+
+            showScreen(
+                destination
+            );
+
+        }
+
+    }
+);
 ```
 
 });
 
-/* =========================
+/* =====================================
 FAMILY SLIDESHOW
-========================= */
+===================================== */
 
 const familyImages = [
 
@@ -89,7 +133,7 @@ const familyImages = [
 
 ];
 
-const slideMessages = [
+const familyMessages = [
 
 ```
 "Every moment together is a treasure.",
@@ -108,130 +152,182 @@ const slideMessages = [
 let currentSlide = 0;
 
 const familySlide =
-document.getElementById("familySlide");
+document.getElementById(
+"familySlide"
+);
 
 const slideText =
-document.getElementById("slideText");
+document.getElementById(
+"slideText"
+);
 
 const slideNumber =
-document.getElementById("slideNumber");
+document.getElementById(
+"slideNumber"
+);
 
 function updateSlide() {
 
 ```
-familySlide.style.opacity = 0;
+if (!familySlide) return;
 
 
-setTimeout(() => {
+familySlide.style.opacity = "0";
 
-    familySlide.src =
-        familyImages[currentSlide];
 
-    slideText.textContent =
-        slideMessages[currentSlide];
+setTimeout(
+    function () {
 
-    slideNumber.textContent =
-        `${currentSlide + 1} / ${familyImages.length}`;
+        familySlide.src =
+            familyImages[
+                currentSlide
+            ];
 
-    familySlide.style.opacity = 1;
 
-}, 400);
+        slideText.textContent =
+            familyMessages[
+                currentSlide
+            ];
+
+
+        slideNumber.textContent =
+            `${currentSlide + 1} / ${familyImages.length}`;
+
+
+        familySlide.style.opacity =
+            "1";
+
+    },
+    400
+);
 ```
 
 }
 
-/* =========================
+/* =====================================
 NEXT SLIDE
-========================= */
+===================================== */
 
-document
-.getElementById("nextSlide")
-.addEventListener("click", () => {
+const nextSlideButton =
+document.getElementById(
+"nextSlide"
+);
+
+if (nextSlideButton) {
 
 ```
-    currentSlide++;
+nextSlideButton.addEventListener(
+    "click",
+    function () {
 
-    if (
-        currentSlide >=
-        familyImages.length
-    ) {
+        currentSlide++;
 
-        currentSlide = 0;
+        if (
+            currentSlide >=
+            familyImages.length
+        ) {
+
+            currentSlide = 0;
+
+        }
+
+        updateSlide();
 
     }
-
-    updateSlide();
-
-});
+);
 ```
-
-/* =========================
-PREVIOUS SLIDE
-========================= */
-
-document
-.getElementById("prevSlide")
-.addEventListener("click", () => {
-
-```
-    currentSlide--;
-
-    if (currentSlide < 0) {
-
-        currentSlide =
-            familyImages.length - 1;
-
-    }
-
-    updateSlide();
-
-});
-```
-
-/* =========================
-AUTOMATIC SLIDESHOW
-========================= */
-
-setInterval(() => {
-
-```
-const familyScreen =
-    document.getElementById("family");
-
-
-if (
-    !familyScreen.classList.contains("hidden")
-) {
-
-    currentSlide++;
-
-
-    if (
-        currentSlide >=
-        familyImages.length
-    ) {
-
-        currentSlide = 0;
-
-    }
-
-
-    updateSlide();
 
 }
+
+/* =====================================
+PREVIOUS SLIDE
+===================================== */
+
+const previousSlideButton =
+document.getElementById(
+"prevSlide"
+);
+
+if (previousSlideButton) {
+
+```
+previousSlideButton.addEventListener(
+    "click",
+    function () {
+
+        currentSlide--;
+
+        if (currentSlide < 0) {
+
+            currentSlide =
+                familyImages.length - 1;
+
+        }
+
+        updateSlide();
+
+    }
+);
 ```
 
-}, 5000);
+}
 
-/* =========================
+/* =====================================
+AUTOMATIC FAMILY SLIDESHOW
+===================================== */
+
+setInterval(
+function () {
+
+```
+    const familyScreen =
+        document.getElementById(
+            "family"
+        );
+
+
+    if (
+        familyScreen &&
+        !familyScreen.classList.contains(
+            "hidden"
+        )
+    ) {
+
+        currentSlide++;
+
+        if (
+            currentSlide >=
+            familyImages.length
+        ) {
+
+            currentSlide = 0;
+
+        }
+
+        updateSlide();
+
+    }
+
+},
+5000
+```
+
+);
+
+/* =====================================
 GOLD PARTICLES
-========================= */
+===================================== */
 
 function createParticles(amount) {
 
 ```
 const container =
-    document.getElementById("particles");
+    document.getElementById(
+        "particles"
+    );
+
+
+if (!container) return;
 
 
 for (
@@ -241,12 +337,13 @@ for (
 ) {
 
     const particle =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
-    particle.classList.add(
-        "particle"
-    );
+    particle.className =
+        "particle";
 
 
     particle.style.left =
@@ -255,10 +352,6 @@ for (
 
     particle.style.top =
         Math.random() * 100 + "%";
-
-
-    particle.style.animationDelay =
-        Math.random() * 2 + "s";
 
 
     const size =
@@ -273,40 +366,49 @@ for (
         size + "px";
 
 
+    particle.style.animationDelay =
+        Math.random() * 2 + "s";
+
+
     container.appendChild(
         particle
     );
 
 
-    setTimeout(() => {
+    setTimeout(
+        function () {
 
-        particle.remove();
+            particle.remove();
 
-    }, 6000);
+        },
+        6000
+    );
 
 }
 ```
 
 }
 
-/* =========================
+/* =====================================
 INITIAL PARTICLES
-========================= */
+===================================== */
 
 createParticles(20);
 
-/* =========================
-FINAL PETALS
-========================= */
+/* =====================================
+FINAL FLOWER PETALS
+===================================== */
 
 function createPetal() {
 
 ```
 const petal =
-    document.createElement("div");
+    document.createElement(
+        "div"
+    );
 
 
-petal.innerHTML = "🌸";
+petal.textContent = "🌸";
 
 
 petal.style.position =
@@ -341,33 +443,45 @@ document.body.appendChild(
 );
 
 
-setTimeout(() => {
+setTimeout(
+    function () {
 
-    petal.remove();
+        petal.remove();
 
-}, 10000);
+    },
+    10000
+);
 ```
 
 }
 
-/* =========================
-PETALS WHEN FINAL OPENS
-========================= */
+/* =====================================
+CREATE PETALS ONLY ON FINAL PAGE
+===================================== */
 
-setInterval(() => {
+setInterval(
+function () {
 
 ```
-const finalScreen =
-    document.getElementById("final");
+    const finalScreen =
+        document.getElementById(
+            "final"
+        );
 
 
-if (
-    !finalScreen.classList.contains("hidden")
-) {
+    if (
+        finalScreen &&
+        !finalScreen.classList.contains(
+            "hidden"
+        )
+    ) {
 
-    createPetal();
+        createPetal();
 
-}
+    }
+
+},
+700
 ```
 
-}, 700);
+);
