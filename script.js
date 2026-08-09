@@ -1,34 +1,53 @@
 /* =====================================================
 AANIE WEBB BIRTHDAY SURPRISE
-CLEAN VERSION
+MOBILE + MESSENGER FRIENDLY VERSION
 ===================================================== */
 
 /* =====================================================
 SCREEN NAVIGATION
 ===================================================== */
 
-var screens = document.querySelectorAll(".screen");
+var screens =
+document.querySelectorAll(".screen");
 
 function showScreen(screenId) {
 
 ```
-var target = document.getElementById(screenId);
+var target =
+    document.getElementById(screenId);
 
 if (!target) {
-    console.error("Screen not found: " + screenId);
+
+    console.error(
+        "Screen not found: " + screenId
+    );
+
     return;
+
 }
 
-screens.forEach(function(screen) {
-    screen.classList.add("hidden");
-});
 
-target.classList.remove("hidden");
+screens.forEach(
+    function(screen) {
+
+        screen.classList.add(
+            "hidden"
+        );
+
+    }
+);
+
+
+target.classList.remove(
+    "hidden"
+);
+
 
 window.scrollTo({
     top: 0,
     behavior: "smooth"
 });
+
 
 createParticles(35);
 ```
@@ -42,56 +61,90 @@ PARTICLES
 function createParticles(amount) {
 
 ```
-var container = document.getElementById("particles");
+var container =
+    document.getElementById(
+        "particles"
+    );
+
 
 if (!container) {
     return;
 }
 
-for (var i = 0; i < amount; i++) {
 
-    var particle = document.createElement("div");
+for (
+    var i = 0;
+    i < amount;
+    i++
+) {
 
-    particle.className = "particle";
+    var particle =
+        document.createElement(
+            "div"
+        );
+
+
+    particle.className =
+        "particle";
+
 
     particle.style.left =
         Math.random() * 100 + "%";
 
+
     particle.style.top =
         Math.random() * 100 + "%";
+
 
     var size =
         Math.random() * 4 + 2;
 
+
     particle.style.width =
         size + "px";
+
 
     particle.style.height =
         size + "px";
 
+
     particle.style.animationDelay =
         Math.random() * 2 + "s";
 
-    container.appendChild(particle);
 
-    (function(p) {
+    container.appendChild(
+        particle
+    );
 
-        setTimeout(function() {
 
-            if (p && p.parentNode) {
-                p.parentNode.removeChild(p);
+    setTimeout(
+        function(p) {
+
+            if (
+                p &&
+                p.parentNode
+            ) {
+
+                p.parentNode.removeChild(
+                    p
+                );
+
             }
 
-        }, 6000);
+        },
+        6000,
+        particle
+    );
 
-    })(particle);
 }
 ```
 
 }
 
 /* =====================================================
-SIMPLE CINEMATIC SOUND
+MUSIC
+IMPORTANT:
+MUSIC NEVER CONTROLS PAGE NAVIGATION
 ===================================================== */
 
 var audioContext = null;
@@ -107,30 +160,69 @@ if (musicPlaying) {
     return;
 }
 
-var AudioContext =
-    window.AudioContext ||
-    window.webkitAudioContext;
 
-if (!AudioContext) {
-    console.log("Web Audio is not supported.");
-    return;
-}
+try {
 
-audioContext = new AudioContext();
+    var AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
 
-if (audioContext.state === "suspended") {
-    audioContext.resume();
-}
 
-musicPlaying = true;
+    if (!AudioContext) {
 
-playMelody();
+        console.log(
+            "Web Audio is not supported."
+        );
 
-var musicButton =
-    document.getElementById("musicBtn");
+        return;
 
-if (musicButton) {
-    musicButton.innerHTML = "♫";
+    }
+
+
+    if (!audioContext) {
+
+        audioContext =
+            new AudioContext();
+
+    }
+
+
+    if (
+        audioContext.state ===
+        "suspended"
+    ) {
+
+        audioContext.resume()
+            .catch(
+                function(error) {
+
+                    console.log(
+                        "Audio resume blocked:",
+                        error
+                    );
+
+                }
+            );
+
+    }
+
+
+    musicPlaying = true;
+
+
+    playMelody();
+
+
+    updateMusicButton();
+
+
+} catch (error) {
+
+    console.log(
+        "Music unavailable:",
+        error
+    );
+
 }
 ```
 
@@ -141,71 +233,144 @@ function stopMusic() {
 ```
 musicPlaying = false;
 
+
 if (musicTimer) {
-    clearTimeout(musicTimer);
+
+    clearTimeout(
+        musicTimer
+    );
+
     musicTimer = null;
+
 }
 
+
+updateMusicButton();
+```
+
+}
+
+function updateMusicButton() {
+
+```
 var musicButton =
-    document.getElementById("musicBtn");
+    document.getElementById(
+        "musicBtn"
+    );
 
-if (musicButton) {
-    musicButton.innerHTML = "🔇";
-}
-```
 
-}
-
-function playNote(frequency, duration, delay) {
-
-```
-if (!audioContext || !musicPlaying) {
+if (!musicButton) {
     return;
 }
 
-var oscillator =
-    audioContext.createOscillator();
 
-var gain =
-    audioContext.createGain();
+if (musicPlaying) {
 
-oscillator.type = "sine";
+    musicButton.innerHTML =
+        "♫";
 
-oscillator.frequency.setValueAtTime(
-    frequency,
-    audioContext.currentTime + delay
-);
+} else {
 
-gain.gain.setValueAtTime(
-    0,
-    audioContext.currentTime + delay
-);
+    musicButton.innerHTML =
+        "🔇";
 
-gain.gain.linearRampToValueAtTime(
-    0.035,
-    audioContext.currentTime + delay + 0.08
-);
+}
+```
 
-gain.gain.linearRampToValueAtTime(
-    0,
-    audioContext.currentTime + delay + duration
-);
+}
 
-oscillator.connect(gain);
+function playNote(
+frequency,
+duration,
+delay
+) {
 
-gain.connect(
-    audioContext.destination
-);
+```
+if (
+    !audioContext ||
+    !musicPlaying
+) {
 
-oscillator.start(
-    audioContext.currentTime + delay
-);
+    return;
 
-oscillator.stop(
-    audioContext.currentTime +
-    delay +
-    duration
-);
+}
+
+
+try {
+
+    var oscillator =
+        audioContext.createOscillator();
+
+
+    var gain =
+        audioContext.createGain();
+
+
+    oscillator.type =
+        "sine";
+
+
+    oscillator.frequency.setValueAtTime(
+        frequency,
+        audioContext.currentTime +
+        delay
+    );
+
+
+    gain.gain.setValueAtTime(
+        0,
+        audioContext.currentTime +
+        delay
+    );
+
+
+    gain.gain.linearRampToValueAtTime(
+        0.035,
+        audioContext.currentTime +
+        delay +
+        0.08
+    );
+
+
+    gain.gain.linearRampToValueAtTime(
+        0,
+        audioContext.currentTime +
+        delay +
+        duration
+    );
+
+
+    oscillator.connect(
+        gain
+    );
+
+
+    gain.connect(
+        audioContext.destination
+    );
+
+
+    oscillator.start(
+        audioContext.currentTime +
+        delay
+    );
+
+
+    oscillator.stop(
+        audioContext.currentTime +
+        delay +
+        duration
+    );
+
+
+} catch (error) {
+
+    console.log(
+        "Note could not play:",
+        error
+    );
+
+}
 ```
 
 }
@@ -216,6 +381,7 @@ function playMelody() {
 if (!musicPlaying) {
     return;
 }
+
 
 var notes = [
 
@@ -236,7 +402,12 @@ var notes = [
 
 ];
 
-for (var i = 0; i < notes.length; i++) {
+
+for (
+    var i = 0;
+    i < notes.length;
+    i++
+) {
 
     playNote(
         notes[i],
@@ -246,10 +417,12 @@ for (var i = 0; i < notes.length; i++) {
 
 }
 
-musicTimer = setTimeout(
-    playMelody,
-    10500
-);
+
+musicTimer =
+    setTimeout(
+        playMelody,
+        10500
+    );
 ```
 
 }
@@ -259,14 +432,19 @@ MUSIC BUTTON
 ===================================================== */
 
 var musicButton =
-document.getElementById("musicBtn");
+document.getElementById(
+"musicBtn"
+);
 
 if (musicButton) {
 
 ```
 musicButton.addEventListener(
     "click",
-    function() {
+    function(event) {
+
+        event.preventDefault();
+
 
         if (musicPlaying) {
 
@@ -286,31 +464,62 @@ musicButton.addEventListener(
 
 /* =====================================================
 OPEN SURPRISE
+MESSENGER SAFE
 ===================================================== */
 
 var openButton =
-document.getElementById("openBtn");
+document.getElementById(
+"openBtn"
+);
 
 if (openButton) {
 
 ```
 openButton.addEventListener(
     "click",
-    function() {
+    function(event) {
 
-        openButton.disabled = true;
+        event.preventDefault();
 
-        startMusic();
 
-        createParticles(100);
+        /*
+         * IMPORTANT:
+         *
+         * Open the birthday page FIRST.
+         *
+         * Music is optional.
+         *
+         * Therefore Messenger cannot
+         * break the page navigation.
+         */
 
-        setTimeout(function() {
+        showScreen(
+            "intro"
+        );
 
-            showScreen("intro");
 
-            openButton.disabled = false;
+        createParticles(
+            100
+        );
 
-        }, 800);
+
+        /*
+         * Try to start music
+         * separately.
+         */
+
+        try {
+
+            startMusic();
+
+        } catch (error) {
+
+            console.log(
+                "Music unavailable:",
+                error
+            );
+
+        }
 
     }
 );
@@ -323,31 +532,48 @@ NEXT BUTTONS
 ===================================================== */
 
 var nextButtons =
-document.querySelectorAll(".next-btn");
-
-nextButtons.forEach(function(button) {
-
-```
-button.addEventListener(
-    "click",
-    function() {
-
-        var destination =
-            button.getAttribute("data-next");
-
-        if (!destination) {
-            return;
-        }
-
-        createParticles(50);
-
-        showScreen(destination);
-
-    }
+document.querySelectorAll(
+".next-btn"
 );
+
+nextButtons.forEach(
+function(button) {
+
+```
+    button.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+
+
+            var destination =
+                button.getAttribute(
+                    "data-next"
+                );
+
+
+            if (!destination) {
+                return;
+            }
+
+
+            createParticles(
+                50
+            );
+
+
+            showScreen(
+                destination
+            );
+
+        }
+    );
+
+}
 ```
 
-});
+);
 
 /* =====================================================
 FAMILY SLIDESHOW
@@ -384,13 +610,19 @@ var familyMessages = [
 var currentSlide = 0;
 
 var familySlide =
-document.getElementById("familySlide");
+document.getElementById(
+"familySlide"
+);
 
 var slideText =
-document.getElementById("slideText");
+document.getElementById(
+"slideText"
+);
 
 var slideNumber =
-document.getElementById("slideNumber");
+document.getElementById(
+"slideNumber"
+);
 
 function updateSlide() {
 
@@ -399,32 +631,48 @@ if (!familySlide) {
     return;
 }
 
-familySlide.style.opacity = "0";
 
-setTimeout(function() {
+familySlide.style.opacity =
+    "0";
 
-    familySlide.src =
-        familyImages[currentSlide];
 
-    if (slideText) {
+setTimeout(
+    function() {
 
-        slideText.textContent =
-            familyMessages[currentSlide];
+        familySlide.src =
+            familyImages[
+                currentSlide
+            ];
 
-    }
 
-    if (slideNumber) {
+        if (slideText) {
 
-        slideNumber.textContent =
-            (currentSlide + 1) +
-            " / " +
-            familyImages.length;
+            slideText.textContent =
+                familyMessages[
+                    currentSlide
+                ];
 
-    }
+        }
 
-    familySlide.style.opacity = "1";
 
-}, 350);
+        if (slideNumber) {
+
+            slideNumber.textContent =
+                (
+                    currentSlide + 1
+                ) +
+                " / " +
+                familyImages.length;
+
+        }
+
+
+        familySlide.style.opacity =
+            "1";
+
+    },
+    350
+);
 ```
 
 }
@@ -434,16 +682,22 @@ NEXT SLIDE
 ===================================================== */
 
 var nextSlideButton =
-document.getElementById("nextSlide");
+document.getElementById(
+"nextSlide"
+);
 
 if (nextSlideButton) {
 
 ```
 nextSlideButton.addEventListener(
     "click",
-    function() {
+    function(event) {
+
+        event.preventDefault();
+
 
         currentSlide++;
+
 
         if (
             currentSlide >=
@@ -453,6 +707,7 @@ nextSlideButton.addEventListener(
             currentSlide = 0;
 
         }
+
 
         updateSlide();
 
@@ -467,23 +722,32 @@ PREVIOUS SLIDE
 ===================================================== */
 
 var previousSlideButton =
-document.getElementById("prevSlide");
+document.getElementById(
+"prevSlide"
+);
 
 if (previousSlideButton) {
 
 ```
 previousSlideButton.addEventListener(
     "click",
-    function() {
+    function(event) {
+
+        event.preventDefault();
+
 
         currentSlide--;
 
-        if (currentSlide < 0) {
+
+        if (
+            currentSlide < 0
+        ) {
 
             currentSlide =
                 familyImages.length - 1;
 
         }
+
 
         updateSlide();
 
@@ -494,40 +758,52 @@ previousSlideButton.addEventListener(
 }
 
 /* =====================================================
-AUTOMATIC SLIDESHOW
+AUTOMATIC FAMILY SLIDESHOW
 ===================================================== */
 
-setInterval(function() {
+setInterval(
+function() {
 
 ```
-var familyScreen =
-    document.getElementById("family");
+    var familyScreen =
+        document.getElementById(
+            "family"
+        );
 
-if (!familyScreen) {
-    return;
-}
 
-if (
-    !familyScreen.classList.contains("hidden")
-) {
+    if (!familyScreen) {
+        return;
+    }
 
-    currentSlide++;
 
     if (
-        currentSlide >=
-        familyImages.length
+        !familyScreen.classList.contains(
+            "hidden"
+        )
     ) {
 
-        currentSlide = 0;
+        currentSlide++;
+
+
+        if (
+            currentSlide >=
+            familyImages.length
+        ) {
+
+            currentSlide = 0;
+
+        }
+
+
+        updateSlide();
 
     }
 
-    updateSlide();
-
-}
+},
+5000
 ```
 
-}, 5000);
+);
 
 /* =====================================================
 FLOWER PETALS
@@ -537,63 +813,105 @@ function createPetal() {
 
 ```
 var petal =
-    document.createElement("div");
+    document.createElement(
+        "div"
+    );
 
-petal.innerHTML = "🌸";
 
-petal.style.position = "fixed";
+petal.innerHTML =
+    "🌸";
 
-petal.style.top = "-40px";
+
+petal.style.position =
+    "fixed";
+
+
+petal.style.top =
+    "-40px";
+
 
 petal.style.left =
     Math.random() * 100 + "%";
 
+
 petal.style.fontSize =
-    Math.random() * 18 + 12 + "px";
+    Math.random() * 18 +
+    12 +
+    "px";
 
-petal.style.pointerEvents = "none";
 
-petal.style.zIndex = "150";
+petal.style.pointerEvents =
+    "none";
+
+
+petal.style.zIndex =
+    "150";
+
 
 petal.style.animation =
     "birthdayFall " +
-    (Math.random() * 5 + 5) +
+    (
+        Math.random() * 5 +
+        5
+    ) +
     "s linear";
 
-document.body.appendChild(petal);
 
-setTimeout(function() {
+document.body.appendChild(
+    petal
+);
 
-    if (petal && petal.parentNode) {
-        petal.parentNode.removeChild(petal);
-    }
 
-}, 10000);
+setTimeout(
+    function() {
+
+        if (
+            petal &&
+            petal.parentNode
+        ) {
+
+            petal.parentNode.removeChild(
+                petal
+            );
+
+        }
+
+    },
+    10000
+);
 ```
 
 }
 
 /* =====================================================
-PETAL ANIMATION
+PETAL CSS
 ===================================================== */
 
 var petalAnimation =
-document.createElement("style");
+document.createElement(
+"style"
+);
 
 petalAnimation.textContent =
 "@keyframes birthdayFall {" +
+
+```
 "0% {" +
 "transform: translateY(0) rotate(0deg);" +
 "opacity: 0;" +
 "}" +
+
 "15% {" +
 "opacity: 1;" +
 "}" +
+
 "100% {" +
 "transform: translateY(110vh) rotate(720deg);" +
 "opacity: 0;" +
 "}" +
+
 "}";
+```
 
 document.head.appendChild(
 petalAnimation
@@ -606,15 +924,26 @@ FINAL SURPRISE
 function finalSurprise() {
 
 ```
-createParticles(150);
+createParticles(
+    150
+);
 
-for (var i = 0; i < 35; i++) {
 
-    setTimeout(function() {
+for (
+    var i = 0;
+    i < 35;
+    i++
+) {
 
-        createPetal();
+    setTimeout(
+        function() {
 
-    }, Math.random() * 3500);
+            createPetal();
+
+        },
+        Math.random() *
+        3500
+    );
 
 }
 ```
@@ -622,11 +951,13 @@ for (var i = 0; i < 35; i++) {
 }
 
 /* =====================================================
-WATCH FOR FINAL PAGE
+WATCH FOR FINAL SCREEN
 ===================================================== */
 
 var finalScreen =
-document.getElementById("final");
+document.getElementById(
+"final"
+);
 
 if (finalScreen) {
 
@@ -648,11 +979,14 @@ var finalObserver =
         }
     );
 
+
 finalObserver.observe(
     finalScreen,
     {
         attributes: true,
-        attributeFilter: ["class"]
+        attributeFilter: [
+            "class"
+        ]
     }
 );
 ```
@@ -664,22 +998,34 @@ REPLAY
 ===================================================== */
 
 var replayButton =
-document.getElementById("replayBtn");
+document.getElementById(
+"replayBtn"
+);
 
 if (replayButton) {
 
 ```
 replayButton.addEventListener(
     "click",
-    function() {
+    function(event) {
+
+        event.preventDefault();
+
 
         currentSlide = 0;
 
+
         updateSlide();
 
-        showScreen("opening");
 
-        createParticles(80);
+        showScreen(
+            "opening"
+        );
+
+
+        createParticles(
+            80
+        );
 
     }
 );
@@ -688,47 +1034,9 @@ replayButton.addEventListener(
 }
 
 /* =====================================================
-STARTING EFFECT
+INITIAL PARTICLES
 ===================================================== */
 
-createParticles(25);
-
-````
-
-### Then do this exactly
-
-1. Open **GitHub**
-2. Open your `happy-birthday-mom` repository.
-3. Open `script.js`.
-4. Click the **pencil/edit button**.
-5. **Ctrl+A → delete everything.**
-6. Paste the new code above.
-7. **Commit changes.**
-8. Wait about 30–60 seconds.
-9. Open your birthday page.
-10. Press **Ctrl + Shift + R**.
-
-Your page is:
-
-[Aanie Webb Birthday Surprise](https://chriznatense.github.io/happy-birthday-mom/?utm_source=chatgpt.com)
-
-### One important thing
-
-If you **still** get:
-
-```text
-script.js:45
-````
-
-after replacing the entire file, don't change anything else yet. Send me a screenshot of **the first ~60 lines of your actual `script.js` in GitHub**, because then we'll know whether GitHub is actually serving the new file or an old/corrupted version.
-
-Also, this version keeps your exact photo naming:
-
-```text
-chris.jpg
-sisters1.jpg
-sisters2.jpg
-mon1.jpg
-```
-
-and there is **no `chris1.jpg` or `sister3.jpg` anywhere in the new code**.
+createParticles(
+25
+);
