@@ -45,13 +45,8 @@ z-index: -2;
 #particles {
 position: fixed;
 inset: 0;
-
-```
 pointer-events: none;
-
 z-index: 10;
-```
-
 }
 
 /* =========================
@@ -70,21 +65,13 @@ padding: 60px 20px;
 
 opacity: 1;
 
-transition:
-    opacity 1s ease,
-    transform 1s ease;
+animation: screenIn 0.8s ease;
 ```
 
 }
 
 .screen.hidden {
 display: none;
-opacity: 0;
-}
-
-.screen.fade-out {
-opacity: 0;
-transform: translateY(-20px);
 }
 
 /* =========================
@@ -106,52 +93,30 @@ line-height: 0.95;
 .eyebrow {
 letter-spacing: 5px;
 font-size: 11px;
-
-```
 color: #d7ae76;
-
 margin-bottom: 25px;
-```
-
 }
 
 .small-text {
 letter-spacing: 4px;
 text-transform: uppercase;
-
-```
 font-size: 11px;
-
 color: #c9a77c;
-```
-
 }
 
 .subtitle {
 font-family: "Playfair Display", serif;
-
-```
 font-style: italic;
-
 color: #c9a77c;
-
 font-size: 20px;
-
 margin-top: 15px;
-```
-
 }
 
 .gold-line {
 width: 70px;
 height: 1px;
-
-```
 background: #c9a77c;
-
 margin: 30px auto;
-```
-
 }
 
 /* =========================
@@ -160,12 +125,7 @@ OPENING
 
 .opening-content {
 text-align: center;
-
-```
-animation:
-    entrance 2s ease forwards;
-```
-
+animation: entrance 2s ease forwards;
 }
 
 .opening-content h1 {
@@ -173,15 +133,9 @@ margin-top: 30px;
 }
 
 .opening-content h2 {
-font-size:
-clamp(4rem, 10vw, 8rem);
-
-```
+font-size: clamp(4rem, 10vw, 8rem);
 font-style: italic;
-
 color: #d9b27b;
-```
-
 }
 
 /* =========================
@@ -189,11 +143,10 @@ BUTTONS
 ========================= */
 
 button {
-font-family:
-"Montserrat", sans-serif;
+font-family: "Montserrat", sans-serif;
 }
 
-#openBtn,
+.main-btn,
 .next-btn {
 margin-top: 45px;
 
@@ -218,7 +171,7 @@ transition:
 
 }
 
-#openBtn:hover,
+.main-btn:hover,
 .next-btn:hover {
 
 ```
@@ -236,21 +189,17 @@ box-shadow:
 
 }
 
-#openBtn span:last-child {
-margin-left: 15px;
-}
-
 /* =========================
-INTRO
+CONTENT
 ========================= */
 
 .content {
 max-width: 850px;
-
-```
 text-align: center;
-```
+}
 
+.wide {
+max-width: 1100px;
 }
 
 .intro-text {
@@ -261,8 +210,7 @@ margin: auto;
 
 color: #c9beb5;
 
-font-family:
-    "Playfair Display", serif;
+font-family: "Playfair Display", serif;
 
 font-size: 20px;
 
@@ -277,15 +225,10 @@ LETTER
 
 .letter-container {
 max-width: 850px;
-
-```
 text-align: center;
-```
-
 }
 
 .letter-card {
-position: relative;
 
 ```
 padding: 55px 50px;
@@ -310,17 +253,14 @@ box-shadow:
 
 .letter-card h2 {
 font-size: 45px;
-
-```
 margin-bottom: 30px;
-```
-
 }
 
 .letter-card p {
-color: #d4c8be;
 
 ```
+color: #d4c8be;
+
 font-family:
     "Playfair Display", serif;
 
@@ -335,13 +275,8 @@ margin-bottom: 20px;
 
 .signature {
 margin-top: 35px;
-
-```
 color: #d7ae76 !important;
-
 font-style: italic;
-```
-
 }
 
 .signature-name {
@@ -352,14 +287,11 @@ font-size: 14px !important;
 GALLERY
 ========================= */
 
-.wide {
-max-width: 1100px;
-}
-
 .gallery {
-display: grid;
 
 ```
+display: grid;
+
 grid-template-columns:
     repeat(4, 1fr);
 
@@ -371,16 +303,15 @@ margin-top: 50px;
 }
 
 .photo-card {
-height: 250px;
 
 ```
+height: 250px;
+
 overflow: hidden;
 
 border:
     1px solid
     rgba(201,167,124,0.25);
-
-position: relative;
 
 background: #100b08;
 ```
@@ -388,9 +319,10 @@ background: #100b08;
 }
 
 .photo-card.large {
-grid-column: span 2;
 
 ```
+grid-column: span 2;
+
 grid-row: span 2;
 
 height: 512px;
@@ -399,10 +331,11 @@ height: 512px;
 }
 
 .photo-card img {
+
+```
 width: 100%;
 height: 100%;
 
-```
 object-fit: cover;
 
 transition:
@@ -415,22 +348,24 @@ filter: brightness(0.82);
 }
 
 .photo-card:hover img {
-transform: scale(1.08);
 
 ```
+transform: scale(1.08);
+
 filter: brightness(1);
 ```
 
 }
 
 /* =========================
-PERSONAL MESSAGES
+PERSONAL MESSAGE
 ========================= */
 
 .personal-message-container {
-width: 100%;
 
 ```
+width: 100%;
+
 max-width: 850px;
 
 text-align: center;
@@ -438,14 +373,10 @@ text-align: center;
 
 }
 
-/* PHOTO */
-
 .personal-photo-wrapper {
-position: relative;
 
 ```
-width:
-    min(420px, 90vw);
+width: min(420px, 90vw);
 
 margin:
     20px auto 45px;
@@ -454,7 +385,6 @@ margin:
 }
 
 .personal-photo-frame {
-position: relative;
 
 ```
 padding: 10px;
@@ -471,26 +401,6 @@ background:
 box-shadow:
     0 25px 80px
     rgba(0, 0, 0, 0.65);
-
-z-index: 2;
-```
-
-}
-
-.personal-photo-frame::before {
-
-```
-content: "";
-
-position: absolute;
-
-inset: 5px;
-
-border:
-    1px solid
-    rgba(255,255,255,0.5);
-
-pointer-events: none;
 ```
 
 }
@@ -511,8 +421,6 @@ aspect-ratio: 4 / 5;
 
 }
 
-/* MESSAGE CARD */
-
 .personal-card {
 
 ```
@@ -520,8 +428,7 @@ max-width: 720px;
 
 margin: auto;
 
-padding:
-    50px 45px;
+padding: 50px 45px;
 
 background:
     linear-gradient(
@@ -635,7 +542,7 @@ font-size: 25px;
 }
 
 /* =========================
-FAMILY
+FAMILY SLIDESHOW
 ========================= */
 
 .family-container {
@@ -685,8 +592,7 @@ height: 100%;
 object-fit: cover;
 
 transition:
-    opacity 0.8s ease,
-    transform 5s ease;
+    opacity 0.8s ease;
 
 animation:
     slowZoom 8s infinite alternate;
@@ -800,8 +706,6 @@ FINAL
 text-align: center;
 
 max-width: 750px;
-
-position: relative;
 ```
 
 }
@@ -925,7 +829,6 @@ from {
 
     transform:
         translateY(30px);
-
 }
 
 to {
@@ -934,7 +837,28 @@ to {
 
     transform:
         translateY(0);
+}
+```
 
+}
+
+@keyframes screenIn {
+
+```
+from {
+
+    opacity: 0;
+
+    transform:
+        translateY(15px);
+}
+
+to {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
 }
 ```
 
@@ -947,14 +871,12 @@ to {
 
     transform:
         translateY(0);
-
 }
 
 50% {
 
     transform:
         translateY(-15px);
-
 }
 ```
 
@@ -967,14 +889,12 @@ from {
 
     transform:
         scale(1);
-
 }
 
 to {
 
     transform:
         scale(1.06);
-
 }
 ```
 
@@ -989,13 +909,11 @@ to {
 
     transform:
         translateY(0);
-
 }
 
 20% {
 
     opacity: 0.8;
-
 }
 
 100% {
@@ -1004,15 +922,10 @@ to {
 
     transform:
         translateY(-120px);
-
 }
 ```
 
 }
-
-/* =========================
-PETALS
-========================= */
 
 @keyframes fall {
 
@@ -1024,13 +937,11 @@ PETALS
         rotate(0deg);
 
     opacity: 0;
-
 }
 
 10% {
 
     opacity: 1;
-
 }
 
 100% {
@@ -1040,7 +951,6 @@ PETALS
         rotate(360deg);
 
     opacity: 0;
-
 }
 ```
 
@@ -1057,33 +967,28 @@ MOBILE
 
     padding:
         40px 15px;
-
 }
 
 .letter-card {
 
     padding:
         35px 25px;
-
 }
 
 .letter-card p {
 
     font-size: 16px;
-
 }
 
 .gallery {
 
     grid-template-columns:
         repeat(2, 1fr);
-
 }
 
 .photo-card {
 
     height: 200px;
-
 }
 
 .photo-card.large {
@@ -1095,20 +1000,17 @@ MOBILE
         span 1;
 
     height: 300px;
-
 }
 
 .slideshow {
 
     height: 55vh;
-
 }
 
 .personal-card {
 
     padding:
         35px 22px;
-
 }
 
 .personal-letter {
@@ -1116,7 +1018,6 @@ MOBILE
     font-size: 16px;
 
     line-height: 1.8;
-
 }
 ```
 
