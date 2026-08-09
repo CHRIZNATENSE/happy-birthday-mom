@@ -14,7 +14,7 @@ function showScreen(screenId) {
 const target = document.getElementById(screenId);
 
 if (!target) {
-    console.error("Screen not found:", screenId);
+    console.error("Screen not found: " + screenId);
     return;
 }
 
@@ -35,7 +35,7 @@ createParticles(25);
 }
 
 /* =====================================
-OPENING BUTTON
+OPEN SURPRISE BUTTON
 ===================================== */
 
 const openButton = document.getElementById("openBtn");
@@ -55,7 +55,7 @@ openButton.addEventListener("click", function() {
 }
 
 /* =====================================
-ALL NEXT BUTTONS
+NEXT BUTTONS
 ===================================== */
 
 const nextButtons = document.querySelectorAll(".next-btn");
@@ -65,7 +65,8 @@ nextButtons.forEach(function(button) {
 ```
 button.addEventListener("click", function() {
 
-    const destination = this.getAttribute("data-next");
+    const destination =
+        button.getAttribute("data-next");
 
     if (destination) {
 
@@ -83,31 +84,19 @@ FAMILY SLIDESHOW
 ===================================== */
 
 const familyImages = [
-
-```
 "slidefam1.jpg",
 "slidefam2.jpg",
 "slidefam3.jpg",
 "slidefam4.jpg",
 "slidefam5.jpg"
-```
-
 ];
 
 const familyMessages = [
-
-```
 "Every moment together is a treasure.",
-
 "The best memories are the ones we make together.",
-
 "Through every season, we stay together.",
-
 "Family is where love begins.",
-
 "And these are the moments we will always remember."
-```
-
 ];
 
 let currentSlide = 0;
@@ -130,12 +119,10 @@ if (!familySlide) {
 
 familySlide.style.opacity = "0";
 
-
 setTimeout(function() {
 
     familySlide.src =
         familyImages[currentSlide];
-
 
     if (slideText) {
 
@@ -144,14 +131,14 @@ setTimeout(function() {
 
     }
 
-
     if (slideNumber) {
 
         slideNumber.textContent =
-            `${currentSlide + 1} / ${familyImages.length}`;
+            (currentSlide + 1) +
+            " / " +
+            familyImages.length;
 
     }
-
 
     familySlide.style.opacity = "1";
 
@@ -161,7 +148,7 @@ setTimeout(function() {
 }
 
 /* =====================================
-NEXT SLIDE BUTTON
+NEXT SLIDE
 ===================================== */
 
 const nextSlideButton =
@@ -170,31 +157,25 @@ document.getElementById("nextSlide");
 if (nextSlideButton) {
 
 ```
-nextSlideButton.addEventListener(
-    "click",
-    function() {
+nextSlideButton.addEventListener("click", function() {
 
-        currentSlide++;
+    currentSlide++;
 
-        if (
-            currentSlide >=
-            familyImages.length
-        ) {
+    if (currentSlide >= familyImages.length) {
 
-            currentSlide = 0;
-
-        }
-
-        updateSlide();
+        currentSlide = 0;
 
     }
-);
+
+    updateSlide();
+
+});
 ```
 
 }
 
 /* =====================================
-PREVIOUS SLIDE BUTTON
+PREVIOUS SLIDE
 ===================================== */
 
 const previousSlideButton =
@@ -203,29 +184,26 @@ document.getElementById("prevSlide");
 if (previousSlideButton) {
 
 ```
-previousSlideButton.addEventListener(
-    "click",
-    function() {
+previousSlideButton.addEventListener("click", function() {
 
-        currentSlide--;
+    currentSlide--;
 
-        if (currentSlide < 0) {
+    if (currentSlide < 0) {
 
-            currentSlide =
-                familyImages.length - 1;
-
-        }
-
-        updateSlide();
+        currentSlide =
+            familyImages.length - 1;
 
     }
-);
+
+    updateSlide();
+
+});
 ```
 
 }
 
 /* =====================================
-AUTOMATIC FAMILY SLIDESHOW
+AUTOMATIC SLIDESHOW
 ===================================== */
 
 setInterval(function() {
@@ -234,7 +212,6 @@ setInterval(function() {
 const familyScreen =
     document.getElementById("family");
 
-
 if (
     familyScreen &&
     !familyScreen.classList.contains("hidden")
@@ -242,10 +219,7 @@ if (
 
     currentSlide++;
 
-    if (
-        currentSlide >=
-        familyImages.length
-    ) {
+    if (currentSlide >= familyImages.length) {
 
         currentSlide = 0;
 
@@ -268,50 +242,36 @@ function createParticles(amount) {
 const container =
     document.getElementById("particles");
 
-
 if (!container) {
     return;
 }
-
 
 for (let i = 0; i < amount; i++) {
 
     const particle =
         document.createElement("div");
 
-
-    particle.className =
-        "particle";
-
+    particle.className = "particle";
 
     particle.style.left =
         Math.random() * 100 + "%";
 
-
     particle.style.top =
         Math.random() * 100 + "%";
-
 
     const size =
         Math.random() * 4 + 2;
 
-
     particle.style.width =
         size + "px";
-
 
     particle.style.height =
         size + "px";
 
-
     particle.style.animationDelay =
         Math.random() * 2 + "s";
 
-
-    container.appendChild(
-        particle
-    );
-
+    container.appendChild(particle);
 
     setTimeout(function() {
 
@@ -340,42 +300,29 @@ function createPetal() {
 const petal =
     document.createElement("div");
 
-
 petal.textContent = "🌸";
 
+petal.style.position = "fixed";
 
-petal.style.position =
-    "fixed";
-
-
-petal.style.top =
-    "-30px";
-
+petal.style.top = "-30px";
 
 petal.style.left =
     Math.random() * 100 + "%";
 
-
 petal.style.fontSize =
     Math.random() * 15 + 12 + "px";
 
+petal.style.pointerEvents = "none";
 
-petal.style.pointerEvents =
-    "none";
+petal.style.zIndex = "20";
 
-
-petal.style.zIndex =
-    "20";
-
+const fallTime =
+    Math.random() * 5 + 5;
 
 petal.style.animation =
-    `fall ${Math.random() * 5 + 5}s linear`;
+    "fall " + fallTime + "s linear";
 
-
-document.body.appendChild(
-    petal
-);
-
+document.body.appendChild(petal);
 
 setTimeout(function() {
 
@@ -387,7 +334,7 @@ setTimeout(function() {
 }
 
 /* =====================================
-CREATE PETALS ONLY ON FINAL PAGE
+FINAL PAGE PETALS
 ===================================== */
 
 setInterval(function() {
@@ -395,7 +342,6 @@ setInterval(function() {
 ```
 const finalScreen =
     document.getElementById("final");
-
 
 if (
     finalScreen &&
