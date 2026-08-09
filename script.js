@@ -1,9 +1,14 @@
 /* =====================================================
    AANIE WEBB BIRTHDAY SURPRISE
-   STABLE JAVASCRIPT
+   LUXURY + MUSIC + ANIMATIONS
 ===================================================== */
 
 var screens = document.querySelectorAll(".screen");
+
+var music = document.getElementById("birthdayMusic");
+var musicButton = document.getElementById("musicBtn");
+
+var musicStarted = false;
 
 
 /* =====================================================
@@ -27,7 +32,7 @@ function showScreen(id) {
 
     window.scrollTo(0, 0);
 
-    createParticles(30);
+    createParticles(35);
 
     if (id === "final") {
         startFinalSurprise();
@@ -36,10 +41,98 @@ function showScreen(id) {
 
 
 /* =====================================================
-   OPEN SURPRISE BUTTON
+   MUSIC
 ===================================================== */
 
-var openButton = document.getElementById("openBtn");
+function startMusic() {
+
+    if (!music) {
+        console.log("birthdayMusic element not found.");
+        return;
+    }
+
+    music.volume = 0.45;
+
+    var playPromise = music.play();
+
+    if (playPromise !== undefined) {
+
+        playPromise
+            .then(function() {
+
+                musicStarted = true;
+
+                if (musicButton) {
+                    musicButton.textContent = "♫";
+                }
+
+            })
+            .catch(function(error) {
+
+                console.log(
+                    "Music waiting for user interaction."
+                );
+
+            });
+    }
+}
+
+
+function toggleMusic() {
+
+    if (!music) {
+        return;
+    }
+
+    if (music.paused) {
+
+        music.play()
+            .then(function() {
+
+                musicStarted = true;
+
+                if (musicButton) {
+                    musicButton.textContent = "♫";
+                }
+
+            })
+            .catch(function(error) {
+
+                console.log(
+                    "Music could not start."
+                );
+
+            });
+
+    } else {
+
+        music.pause();
+
+        if (musicButton) {
+            musicButton.textContent = "🔇";
+        }
+    }
+}
+
+
+if (musicButton) {
+
+    musicButton.onclick = function(event) {
+
+        event.preventDefault();
+
+        toggleMusic();
+
+    };
+}
+
+
+/* =====================================================
+   OPEN SURPRISE
+===================================================== */
+
+var openButton =
+    document.getElementById("openBtn");
 
 if (openButton) {
 
@@ -49,10 +142,11 @@ if (openButton) {
 
         showScreen("intro");
 
-        createParticles(80);
+        createParticles(100);
+
+        startMusic();
 
     };
-
 }
 
 
@@ -60,7 +154,8 @@ if (openButton) {
    NEXT BUTTONS
 ===================================================== */
 
-var nextButtons = document.querySelectorAll(".next-btn");
+var nextButtons =
+    document.querySelectorAll(".next-btn");
 
 for (var i = 0; i < nextButtons.length; i++) {
 
@@ -68,14 +163,15 @@ for (var i = 0; i < nextButtons.length; i++) {
 
         event.preventDefault();
 
-        var destination = this.getAttribute("data-next");
+        var destination =
+            this.getAttribute("data-next");
 
         if (destination) {
+
             showScreen(destination);
+
         }
-
     };
-
 }
 
 
@@ -133,9 +229,7 @@ function createParticles(amount) {
             }
 
         }, 6000, particle);
-
     }
-
 }
 
 
@@ -163,14 +257,11 @@ var familyMessages = [
 
 var currentSlide = 0;
 
-
 var familySlide =
     document.getElementById("familySlide");
 
-
 var slideText =
     document.getElementById("slideText");
-
 
 var slideNumber =
     document.getElementById("slideNumber");
@@ -208,7 +299,6 @@ function updateSlide() {
         familySlide.style.opacity = "1";
 
     }, 300);
-
 }
 
 
@@ -239,7 +329,6 @@ if (nextSlide) {
         updateSlide();
 
     };
-
 }
 
 
@@ -268,12 +357,11 @@ if (previousSlide) {
         updateSlide();
 
     };
-
 }
 
 
 /* =====================================================
-   AUTOMATIC SLIDESHOW
+   AUTOMATIC FAMILY SLIDESHOW
 ===================================================== */
 
 setInterval(function() {
@@ -286,7 +374,9 @@ setInterval(function() {
     }
 
     if (
-        !familyScreen.classList.contains("hidden")
+        !familyScreen.classList.contains(
+            "hidden"
+        )
     ) {
 
         currentSlide++;
@@ -301,7 +391,6 @@ setInterval(function() {
         }
 
         updateSlide();
-
     }
 
 }, 5000);
@@ -332,6 +421,11 @@ function createPetal() {
 
     petal.style.zIndex = "150";
 
+    petal.style.animation =
+        "birthdayFall " +
+        (Math.random() * 5 + 5) +
+        "s linear";
+
     document.body.appendChild(petal);
 
     setTimeout(function() {
@@ -344,11 +438,9 @@ function createPetal() {
             petal.parentNode.removeChild(
                 petal
             );
-
         }
 
-    }, 7000);
-
+    }, 10000);
 }
 
 
@@ -358,23 +450,22 @@ function createPetal() {
 
 function startFinalSurprise() {
 
-    createParticles(100);
+    createParticles(150);
 
-    for (var i = 0; i < 25; i++) {
+    for (var i = 0; i < 35; i++) {
 
         setTimeout(function() {
 
             createPetal();
 
-        }, Math.random() * 4000);
+        }, Math.random() * 5000);
 
     }
-
 }
 
 
 /* =====================================================
-   REPLAY BUTTON
+   REPLAY
 ===================================================== */
 
 var replayButton =
@@ -390,12 +481,20 @@ if (replayButton) {
 
         updateSlide();
 
+        if (music) {
+            music.pause();
+            music.currentTime = 0;
+        }
+
+        if (musicButton) {
+            musicButton.textContent = "♫";
+        }
+
         showScreen("opening");
 
         createParticles(80);
 
     };
-
 }
 
 
