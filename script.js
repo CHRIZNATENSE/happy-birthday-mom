@@ -1,21 +1,21 @@
 /* =====================================================
    AANIE WEBB BIRTHDAY SURPRISE
-   STABLE VERSION
+   STABLE JAVASCRIPT
 ===================================================== */
+
+var screens = document.querySelectorAll(".screen");
 
 
 /* =====================================================
    SCREEN NAVIGATION
 ===================================================== */
 
-var screens = document.querySelectorAll(".screen");
-
 function showScreen(id) {
 
     var target = document.getElementById(id);
 
     if (!target) {
-        console.log("Screen not found:", id);
+        console.log("Screen not found: " + id);
         return;
     }
 
@@ -36,21 +36,23 @@ function showScreen(id) {
 
 
 /* =====================================================
-   OPEN SURPRISE
+   OPEN SURPRISE BUTTON
 ===================================================== */
 
 var openButton = document.getElementById("openBtn");
 
 if (openButton) {
 
-    openButton.onclick = function (event) {
+    openButton.onclick = function(event) {
 
         event.preventDefault();
 
         showScreen("intro");
 
         createParticles(80);
+
     };
+
 }
 
 
@@ -58,22 +60,22 @@ if (openButton) {
    NEXT BUTTONS
 ===================================================== */
 
-var nextButtons =
-    document.querySelectorAll(".next-btn");
+var nextButtons = document.querySelectorAll(".next-btn");
 
 for (var i = 0; i < nextButtons.length; i++) {
 
-    nextButtons[i].onclick = function (event) {
+    nextButtons[i].onclick = function(event) {
 
         event.preventDefault();
 
-        var destination =
-            this.getAttribute("data-next");
+        var destination = this.getAttribute("data-next");
 
         if (destination) {
             showScreen(destination);
         }
+
     };
+
 }
 
 
@@ -117,19 +119,23 @@ function createParticles(amount) {
 
         container.appendChild(particle);
 
-        setTimeout(function (element) {
+        setTimeout(function(element) {
 
             if (
                 element &&
                 element.parentNode
             ) {
+
                 element.parentNode.removeChild(
                     element
                 );
+
             }
 
         }, 6000, particle);
+
     }
+
 }
 
 
@@ -157,11 +163,14 @@ var familyMessages = [
 
 var currentSlide = 0;
 
+
 var familySlide =
     document.getElementById("familySlide");
 
+
 var slideText =
     document.getElementById("slideText");
+
 
 var slideNumber =
     document.getElementById("slideNumber");
@@ -175,7 +184,7 @@ function updateSlide() {
 
     familySlide.style.opacity = "0";
 
-    setTimeout(function () {
+    setTimeout(function() {
 
         familySlide.src =
             familyImages[currentSlide];
@@ -184,6 +193,7 @@ function updateSlide() {
 
             slideText.textContent =
                 familyMessages[currentSlide];
+
         }
 
         if (slideNumber) {
@@ -192,11 +202,13 @@ function updateSlide() {
                 (currentSlide + 1) +
                 " / " +
                 familyImages.length;
+
         }
 
         familySlide.style.opacity = "1";
 
     }, 300);
+
 }
 
 
@@ -209,7 +221,7 @@ var nextSlide =
 
 if (nextSlide) {
 
-    nextSlide.onclick = function (event) {
+    nextSlide.onclick = function(event) {
 
         event.preventDefault();
 
@@ -219,11 +231,15 @@ if (nextSlide) {
             currentSlide >=
             familyImages.length
         ) {
+
             currentSlide = 0;
+
         }
 
         updateSlide();
+
     };
+
 }
 
 
@@ -236,7 +252,7 @@ var previousSlide =
 
 if (previousSlide) {
 
-    previousSlide.onclick = function (event) {
+    previousSlide.onclick = function(event) {
 
         event.preventDefault();
 
@@ -246,10 +262,13 @@ if (previousSlide) {
 
             currentSlide =
                 familyImages.length - 1;
+
         }
 
         updateSlide();
+
     };
+
 }
 
 
@@ -257,7 +276,7 @@ if (previousSlide) {
    AUTOMATIC SLIDESHOW
 ===================================================== */
 
-setInterval(function () {
+setInterval(function() {
 
     var familyScreen =
         document.getElementById("family");
@@ -276,10 +295,13 @@ setInterval(function () {
             currentSlide >=
             familyImages.length
         ) {
+
             currentSlide = 0;
+
         }
 
         updateSlide();
+
     }
 
 }, 5000);
@@ -310,14 +332,9 @@ function createPetal() {
 
     petal.style.zIndex = "150";
 
-    petal.style.animation =
-        "birthdayFall " +
-        (Math.random() * 5 + 5) +
-        "s linear";
-
     document.body.appendChild(petal);
 
-    setTimeout(function () {
+    setTimeout(function() {
 
         if (
             petal &&
@@ -327,37 +344,12 @@ function createPetal() {
             petal.parentNode.removeChild(
                 petal
             );
+
         }
 
-    }, 10000);
+    }, 7000);
+
 }
-
-
-/* =====================================================
-   PETAL ANIMATION
-===================================================== */
-
-var petalStyle =
-    document.createElement("style");
-
-petalStyle.textContent =
-    "@keyframes birthdayFall {" +
-    "0% {" +
-    "transform: translateY(0) rotate(0deg);" +
-    "opacity: 0;" +
-    "}" +
-    "15% {" +
-    "opacity: 1;" +
-    "}" +
-    "100% {" +
-    "transform: translateY(110vh) rotate(720deg);" +
-    "opacity: 0;" +
-    "}" +
-    "}";
-
-document.head.appendChild(
-    petalStyle
-);
 
 
 /* =====================================================
@@ -370,17 +362,19 @@ function startFinalSurprise() {
 
     for (var i = 0; i < 25; i++) {
 
-        setTimeout(function () {
+        setTimeout(function() {
 
             createPetal();
 
         }, Math.random() * 4000);
+
     }
+
 }
 
 
 /* =====================================================
-   REPLAY
+   REPLAY BUTTON
 ===================================================== */
 
 var replayButton =
@@ -388,7 +382,7 @@ var replayButton =
 
 if (replayButton) {
 
-    replayButton.onclick = function (event) {
+    replayButton.onclick = function(event) {
 
         event.preventDefault();
 
@@ -399,12 +393,14 @@ if (replayButton) {
         showScreen("opening");
 
         createParticles(80);
+
     };
+
 }
 
 
 /* =====================================================
-   START
+   INITIAL PARTICLES
 ===================================================== */
 
 createParticles(25);
