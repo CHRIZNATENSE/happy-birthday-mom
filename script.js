@@ -1,55 +1,40 @@
 /* =====================================================
 AANIE WEBB BIRTHDAY SURPRISE
-MOBILE + MESSENGER FRIENDLY VERSION
+CLEAN + MOBILE + MESSENGER FRIENDLY
 ===================================================== */
 
 /* =====================================================
 SCREEN NAVIGATION
 ===================================================== */
 
-var screens =
-document.querySelectorAll(".screen");
+var screens = document.querySelectorAll(".screen");
 
 function showScreen(screenId) {
 
 ```
-var target =
-    document.getElementById(screenId);
+var target = document.getElementById(screenId);
 
 if (!target) {
-
-    console.error(
-        "Screen not found: " + screenId
-    );
-
+    console.error("Screen not found:", screenId);
     return;
-
 }
 
+screens.forEach(function(screen) {
+    screen.classList.add("hidden");
+});
 
-screens.forEach(
-    function(screen) {
-
-        screen.classList.add(
-            "hidden"
-        );
-
-    }
-);
-
-
-target.classList.remove(
-    "hidden"
-);
-
+target.classList.remove("hidden");
 
 window.scrollTo({
     top: 0,
     behavior: "smooth"
 });
 
-
 createParticles(35);
+
+if (screenId === "final") {
+    startFinalSurprise();
+}
 ```
 
 }
@@ -61,81 +46,45 @@ PARTICLES
 function createParticles(amount) {
 
 ```
-var container =
-    document.getElementById(
-        "particles"
-    );
-
+var container = document.getElementById("particles");
 
 if (!container) {
     return;
 }
 
+for (var i = 0; i < amount; i++) {
 
-for (
-    var i = 0;
-    i < amount;
-    i++
-) {
+    var particle = document.createElement("div");
 
-    var particle =
-        document.createElement(
-            "div"
-        );
-
-
-    particle.className =
-        "particle";
-
+    particle.className = "particle";
 
     particle.style.left =
         Math.random() * 100 + "%";
 
-
     particle.style.top =
         Math.random() * 100 + "%";
-
 
     var size =
         Math.random() * 4 + 2;
 
-
     particle.style.width =
         size + "px";
-
 
     particle.style.height =
         size + "px";
 
-
     particle.style.animationDelay =
         Math.random() * 2 + "s";
 
+    container.appendChild(particle);
 
-    container.appendChild(
-        particle
-    );
+    setTimeout(function(p) {
 
+        if (p && p.parentNode) {
+            p.parentNode.removeChild(p);
+        }
 
-    setTimeout(
-        function(p) {
-
-            if (
-                p &&
-                p.parentNode
-            ) {
-
-                p.parentNode.removeChild(
-                    p
-                );
-
-            }
-
-        },
-        6000,
-        particle
-    );
-
+    }, 6000, particle);
 }
 ```
 
@@ -143,14 +92,12 @@ for (
 
 /* =====================================================
 MUSIC
-IMPORTANT:
-MUSIC NEVER CONTROLS PAGE NAVIGATION
+MUSIC IS OPTIONAL
+IT WILL NEVER BLOCK THE PAGE
 ===================================================== */
 
 var audioContext = null;
-
 var musicPlaying = false;
-
 var musicTimer = null;
 
 function startMusic() {
@@ -160,61 +107,39 @@ if (musicPlaying) {
     return;
 }
 
-
 try {
 
     var AudioContext =
         window.AudioContext ||
         window.webkitAudioContext;
 
-
     if (!AudioContext) {
-
-        console.log(
-            "Web Audio is not supported."
-        );
-
+        console.log("Web Audio not supported.");
         return;
-
     }
-
 
     if (!audioContext) {
-
-        audioContext =
-            new AudioContext();
-
+        audioContext = new AudioContext();
     }
 
+    if (audioContext.state === "suspended") {
 
-    if (
-        audioContext.state ===
-        "suspended"
-    ) {
+        audioContext.resume().catch(function(error) {
 
-        audioContext.resume()
-            .catch(
-                function(error) {
-
-                    console.log(
-                        "Audio resume blocked:",
-                        error
-                    );
-
-                }
+            console.log(
+                "Audio resume blocked:",
+                error
             );
 
-    }
+        });
 
+    }
 
     musicPlaying = true;
 
-
     playMelody();
 
-
     updateMusicButton();
-
 
 } catch (error) {
 
@@ -233,17 +158,10 @@ function stopMusic() {
 ```
 musicPlaying = false;
 
-
 if (musicTimer) {
-
-    clearTimeout(
-        musicTimer
-    );
-
+    clearTimeout(musicTimer);
     musicTimer = null;
-
 }
-
 
 updateMusicButton();
 ```
@@ -253,27 +171,17 @@ updateMusicButton();
 function updateMusicButton() {
 
 ```
-var musicButton =
-    document.getElementById(
-        "musicBtn"
-    );
+var button =
+    document.getElementById("musicBtn");
 
-
-if (!musicButton) {
+if (!button) {
     return;
 }
 
-
 if (musicPlaying) {
-
-    musicButton.innerHTML =
-        "♫";
-
+    button.innerHTML = "♫";
 } else {
-
-    musicButton.innerHTML =
-        "🔇";
-
+    button.innerHTML = "🔇";
 }
 ```
 
@@ -286,43 +194,29 @@ delay
 ) {
 
 ```
-if (
-    !audioContext ||
-    !musicPlaying
-) {
-
+if (!audioContext || !musicPlaying) {
     return;
-
 }
-
 
 try {
 
     var oscillator =
         audioContext.createOscillator();
 
-
     var gain =
         audioContext.createGain();
 
-
-    oscillator.type =
-        "sine";
-
+    oscillator.type = "sine";
 
     oscillator.frequency.setValueAtTime(
         frequency,
-        audioContext.currentTime +
-        delay
+        audioContext.currentTime + delay
     );
-
 
     gain.gain.setValueAtTime(
         0,
-        audioContext.currentTime +
-        delay
+        audioContext.currentTime + delay
     );
-
 
     gain.gain.linearRampToValueAtTime(
         0.035,
@@ -331,7 +225,6 @@ try {
         0.08
     );
 
-
     gain.gain.linearRampToValueAtTime(
         0,
         audioContext.currentTime +
@@ -339,22 +232,15 @@ try {
         duration
     );
 
-
-    oscillator.connect(
-        gain
-    );
-
+    oscillator.connect(gain);
 
     gain.connect(
         audioContext.destination
     );
 
-
     oscillator.start(
-        audioContext.currentTime +
-        delay
+        audioContext.currentTime + delay
     );
-
 
     oscillator.stop(
         audioContext.currentTime +
@@ -362,11 +248,10 @@ try {
         duration
     );
 
-
 } catch (error) {
 
     console.log(
-        "Note could not play:",
+        "Note error:",
         error
     );
 
@@ -382,32 +267,22 @@ if (!musicPlaying) {
     return;
 }
 
-
 var notes = [
-
     261.63,
     329.63,
     392.00,
     523.25,
-
     440.00,
     392.00,
     329.63,
     261.63,
-
     293.66,
     392.00,
     523.25,
     392.00
-
 ];
 
-
-for (
-    var i = 0;
-    i < notes.length;
-    i++
-) {
+for (var i = 0; i < notes.length; i++) {
 
     playNote(
         notes[i],
@@ -417,12 +292,10 @@ for (
 
 }
 
-
-musicTimer =
-    setTimeout(
-        playMelody,
-        10500
-    );
+musicTimer = setTimeout(
+    playMelody,
+    10500
+);
 ```
 
 }
@@ -432,9 +305,7 @@ MUSIC BUTTON
 ===================================================== */
 
 var musicButton =
-document.getElementById(
-"musicBtn"
-);
+document.getElementById("musicBtn");
 
 if (musicButton) {
 
@@ -445,15 +316,10 @@ musicButton.addEventListener(
 
         event.preventDefault();
 
-
         if (musicPlaying) {
-
             stopMusic();
-
         } else {
-
             startMusic();
-
         }
 
     }
@@ -464,13 +330,11 @@ musicButton.addEventListener(
 
 /* =====================================================
 OPEN SURPRISE
-MESSENGER SAFE
+IMPORTANT FOR MESSENGER
 ===================================================== */
 
 var openButton =
-document.getElementById(
-"openBtn"
-);
+document.getElementById("openBtn");
 
 if (openButton) {
 
@@ -481,44 +345,28 @@ openButton.addEventListener(
 
         event.preventDefault();
 
-
         /*
-         * IMPORTANT:
+         * FIRST:
+         * Open the page.
          *
-         * Open the birthday page FIRST.
+         * SECOND:
+         * Try the music.
          *
-         * Music is optional.
-         *
-         * Therefore Messenger cannot
-         * break the page navigation.
+         * Therefore music cannot stop
+         * the birthday page.
          */
 
-        showScreen(
-            "intro"
-        );
+        showScreen("intro");
 
-
-        createParticles(
-            100
-        );
-
-
-        /*
-         * Try to start music
-         * separately.
-         */
+        createParticles(100);
 
         try {
-
             startMusic();
-
         } catch (error) {
-
             console.log(
-                "Music unavailable:",
+                "Music failed:",
                 error
             );
-
         }
 
     }
@@ -532,97 +380,62 @@ NEXT BUTTONS
 ===================================================== */
 
 var nextButtons =
-document.querySelectorAll(
-".next-btn"
-);
+document.querySelectorAll(".next-btn");
 
-nextButtons.forEach(
-function(button) {
+nextButtons.forEach(function(button) {
 
 ```
-    button.addEventListener(
-        "click",
-        function(event) {
+button.addEventListener(
+    "click",
+    function(event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
+        var destination =
+            button.getAttribute("data-next");
 
-            var destination =
-                button.getAttribute(
-                    "data-next"
-                );
-
-
-            if (!destination) {
-                return;
-            }
-
-
-            createParticles(
-                50
-            );
-
-
-            showScreen(
-                destination
-            );
-
+        if (!destination) {
+            return;
         }
-    );
 
-}
+        showScreen(destination);
+
+    }
+);
 ```
 
-);
+});
 
 /* =====================================================
 FAMILY SLIDESHOW
 ===================================================== */
 
 var familyImages = [
-
-```
 "slidefam1.jpg",
 "slidefam2.jpg",
 "slidefam3.jpg",
 "slidefam4.jpg",
 "slidefam5.jpg"
-```
-
 ];
 
 var familyMessages = [
-
-```
 "Every moment together is a treasure.",
-
 "The best memories are the ones we make together.",
-
 "Through every season, we stay together.",
-
 "Family is where love begins.",
-
 "And these are the moments we will always remember."
-```
-
 ];
 
 var currentSlide = 0;
 
 var familySlide =
-document.getElementById(
-"familySlide"
-);
+document.getElementById("familySlide");
 
 var slideText =
-document.getElementById(
-"slideText"
-);
+document.getElementById("slideText");
 
 var slideNumber =
-document.getElementById(
-"slideNumber"
-);
+document.getElementById("slideNumber");
 
 function updateSlide() {
 
@@ -631,48 +444,32 @@ if (!familySlide) {
     return;
 }
 
+familySlide.style.opacity = "0";
 
-familySlide.style.opacity =
-    "0";
+setTimeout(function() {
 
+    familySlide.src =
+        familyImages[currentSlide];
 
-setTimeout(
-    function() {
+    if (slideText) {
 
-        familySlide.src =
-            familyImages[
-                currentSlide
-            ];
+        slideText.textContent =
+            familyMessages[currentSlide];
 
+    }
 
-        if (slideText) {
+    if (slideNumber) {
 
-            slideText.textContent =
-                familyMessages[
-                    currentSlide
-                ];
+        slideNumber.textContent =
+            (currentSlide + 1) +
+            " / " +
+            familyImages.length;
 
-        }
+    }
 
+    familySlide.style.opacity = "1";
 
-        if (slideNumber) {
-
-            slideNumber.textContent =
-                (
-                    currentSlide + 1
-                ) +
-                " / " +
-                familyImages.length;
-
-        }
-
-
-        familySlide.style.opacity =
-            "1";
-
-    },
-    350
-);
+}, 350);
 ```
 
 }
@@ -682,9 +479,7 @@ NEXT SLIDE
 ===================================================== */
 
 var nextSlideButton =
-document.getElementById(
-"nextSlide"
-);
+document.getElementById("nextSlide");
 
 if (nextSlideButton) {
 
@@ -695,19 +490,14 @@ nextSlideButton.addEventListener(
 
         event.preventDefault();
 
-
         currentSlide++;
-
 
         if (
             currentSlide >=
             familyImages.length
         ) {
-
             currentSlide = 0;
-
         }
-
 
         updateSlide();
 
@@ -722,9 +512,7 @@ PREVIOUS SLIDE
 ===================================================== */
 
 var previousSlideButton =
-document.getElementById(
-"prevSlide"
-);
+document.getElementById("prevSlide");
 
 if (previousSlideButton) {
 
@@ -735,19 +523,14 @@ previousSlideButton.addEventListener(
 
         event.preventDefault();
 
-
         currentSlide--;
 
-
-        if (
-            currentSlide < 0
-        ) {
+        if (currentSlide < 0) {
 
             currentSlide =
                 familyImages.length - 1;
 
         }
-
 
         updateSlide();
 
@@ -761,49 +544,36 @@ previousSlideButton.addEventListener(
 AUTOMATIC FAMILY SLIDESHOW
 ===================================================== */
 
-setInterval(
-function() {
+setInterval(function() {
 
 ```
-    var familyScreen =
-        document.getElementById(
-            "family"
-        );
+var familyScreen =
+    document.getElementById("family");
 
+if (!familyScreen) {
+    return;
+}
 
-    if (!familyScreen) {
-        return;
-    }
+if (
+    !familyScreen.classList.contains("hidden")
+) {
 
+    currentSlide++;
 
     if (
-        !familyScreen.classList.contains(
-            "hidden"
-        )
+        currentSlide >=
+        familyImages.length
     ) {
 
-        currentSlide++;
-
-
-        if (
-            currentSlide >=
-            familyImages.length
-        ) {
-
-            currentSlide = 0;
-
-        }
-
-
-        updateSlide();
+        currentSlide = 0;
 
     }
 
-},
-5000
+    updateSlide();
+}
 ```
 
-);
+}, 5000);
 
 /* =====================================================
 FLOWER PETALS
@@ -813,89 +583,61 @@ function createPetal() {
 
 ```
 var petal =
-    document.createElement(
-        "div"
-    );
+    document.createElement("div");
 
+petal.innerHTML = "🌸";
 
-petal.innerHTML =
-    "🌸";
+petal.style.position = "fixed";
 
-
-petal.style.position =
-    "fixed";
-
-
-petal.style.top =
-    "-40px";
-
+petal.style.top = "-40px";
 
 petal.style.left =
     Math.random() * 100 + "%";
 
-
 petal.style.fontSize =
-    Math.random() * 18 +
-    12 +
-    "px";
+    Math.random() * 18 + 12 + "px";
 
+petal.style.pointerEvents = "none";
 
-petal.style.pointerEvents =
-    "none";
-
-
-petal.style.zIndex =
-    "150";
-
+petal.style.zIndex = "150";
 
 petal.style.animation =
     "birthdayFall " +
-    (
-        Math.random() * 5 +
-        5
-    ) +
+    (Math.random() * 5 + 5) +
     "s linear";
 
+document.body.appendChild(petal);
 
-document.body.appendChild(
-    petal
-);
+setTimeout(function() {
 
+    if (
+        petal &&
+        petal.parentNode
+    ) {
 
-setTimeout(
-    function() {
+        petal.parentNode.removeChild(
+            petal
+        );
 
-        if (
-            petal &&
-            petal.parentNode
-        ) {
+    }
 
-            petal.parentNode.removeChild(
-                petal
-            );
-
-        }
-
-    },
-    10000
-);
+}, 10000);
 ```
 
 }
 
 /* =====================================================
-PETAL CSS
+PETAL ANIMATION
 ===================================================== */
 
-var petalAnimation =
-document.createElement(
-"style"
-);
+var petalStyle =
+document.createElement("style");
 
-petalAnimation.textContent =
-"@keyframes birthdayFall {" +
+petalStyle.textContent =
 
 ```
+"@keyframes birthdayFall {" +
+
 "0% {" +
 "transform: translateY(0) rotate(0deg);" +
 "opacity: 0;" +
@@ -914,81 +656,27 @@ petalAnimation.textContent =
 ```
 
 document.head.appendChild(
-petalAnimation
+petalStyle
 );
 
 /* =====================================================
 FINAL SURPRISE
 ===================================================== */
 
-function finalSurprise() {
+function startFinalSurprise() {
 
 ```
-createParticles(
-    150
-);
+createParticles(150);
 
+for (var i = 0; i < 35; i++) {
 
-for (
-    var i = 0;
-    i < 35;
-    i++
-) {
+    setTimeout(function() {
 
-    setTimeout(
-        function() {
+        createPetal();
 
-            createPetal();
-
-        },
-        Math.random() *
-        3500
-    );
+    }, Math.random() * 3500);
 
 }
-```
-
-}
-
-/* =====================================================
-WATCH FOR FINAL SCREEN
-===================================================== */
-
-var finalScreen =
-document.getElementById(
-"final"
-);
-
-if (finalScreen) {
-
-```
-var finalObserver =
-    new MutationObserver(
-        function() {
-
-            if (
-                !finalScreen.classList.contains(
-                    "hidden"
-                )
-            ) {
-
-                finalSurprise();
-
-            }
-
-        }
-    );
-
-
-finalObserver.observe(
-    finalScreen,
-    {
-        attributes: true,
-        attributeFilter: [
-            "class"
-        ]
-    }
-);
 ```
 
 }
@@ -998,9 +686,7 @@ REPLAY
 ===================================================== */
 
 var replayButton =
-document.getElementById(
-"replayBtn"
-);
+document.getElementById("replayBtn");
 
 if (replayButton) {
 
@@ -1011,21 +697,13 @@ replayButton.addEventListener(
 
         event.preventDefault();
 
-
         currentSlide = 0;
-
 
         updateSlide();
 
+        showScreen("opening");
 
-        showScreen(
-            "opening"
-        );
-
-
-        createParticles(
-            80
-        );
+        createParticles(80);
 
     }
 );
@@ -1037,6 +715,4 @@ replayButton.addEventListener(
 INITIAL PARTICLES
 ===================================================== */
 
-createParticles(
-25
-);
+createParticles(25);
