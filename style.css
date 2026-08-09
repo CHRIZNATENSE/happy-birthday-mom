@@ -34,7 +34,6 @@ body {
     overflow-x: hidden;
 }
 
-
 /* =====================================================
    SCREEN
 ===================================================== */
@@ -46,20 +45,17 @@ body {
     position: relative;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     padding: 60px 20px;
 
-    animation:
-        screenIn 0.8s ease;
+    animation: screenIn 0.8s ease;
 }
 
 .hidden {
     display: none !important;
 }
-
 
 @keyframes screenIn {
 
@@ -73,7 +69,6 @@ body {
         transform: translateY(0);
     }
 }
-
 
 /* =====================================================
    PARTICLES
@@ -91,7 +86,6 @@ body {
     z-index: 100;
 }
 
-
 .particle {
     position: absolute;
 
@@ -103,19 +97,14 @@ body {
         0 0 10px #f5d58a;
 
     animation:
-        particleFloat 5s
-        ease-in-out
-        forwards;
+        particleFloat 5s ease-in-out forwards;
 }
-
 
 @keyframes particleFloat {
 
     0% {
         opacity: 0;
-
-        transform:
-            translateY(20px);
+        transform: translateY(20px);
     }
 
     20% {
@@ -124,13 +113,11 @@ body {
 
     100% {
         opacity: 0;
-
         transform:
             translateY(-100px)
             scale(0.2);
     }
 }
-
 
 /* =====================================================
    MUSIC BUTTON
@@ -164,11 +151,14 @@ body {
 
     backdrop-filter: blur(10px);
 
+    -webkit-backdrop-filter: blur(10px);
+
     transition:
         transform 0.3s ease,
         background 0.3s ease;
-}
 
+    -webkit-tap-highlight-color: transparent;
+}
 
 .music-btn:hover {
     transform: scale(1.08);
@@ -177,6 +167,9 @@ body {
         rgba(80, 40, 60, 0.8);
 }
 
+.music-btn:active {
+    transform: scale(0.94);
+}
 
 /* =====================================================
    OPENING
@@ -187,7 +180,6 @@ body {
 
     overflow: hidden;
 }
-
 
 .opening-glow {
     position: absolute;
@@ -207,28 +199,22 @@ body {
     filter: blur(10px);
 
     animation:
-        glowPulse 5s
-        ease-in-out
-        infinite;
+        glowPulse 5s ease-in-out infinite;
 }
-
 
 @keyframes glowPulse {
 
     0%,
     100% {
         transform: scale(0.9);
-
         opacity: 0.6;
     }
 
     50% {
         transform: scale(1.15);
-
         opacity: 1;
     }
 }
-
 
 .opening-content {
     position: relative;
@@ -238,18 +224,14 @@ body {
     max-width: 750px;
 }
 
-
 .flower-icon {
     font-size: 60px;
 
     margin-bottom: 20px;
 
     animation:
-        flowerFloat 4s
-        ease-in-out
-        infinite;
+        flowerFloat 4s ease-in-out infinite;
 }
-
 
 @keyframes flowerFloat {
 
@@ -267,7 +249,6 @@ body {
     }
 }
 
-
 .eyebrow,
 .small-title {
     color: #d9b56c;
@@ -282,7 +263,6 @@ body {
 
     margin-bottom: 18px;
 }
-
 
 .opening-content h1 {
     font-size:
@@ -307,14 +287,12 @@ body {
         );
 
     -webkit-background-clip: text;
-
     background-clip: text;
 
     color: transparent;
 
     margin-bottom: 15px;
 }
-
 
 .opening-content h2 {
     font-size:
@@ -333,7 +311,6 @@ body {
     margin-bottom: 25px;
 }
 
-
 .opening-subtitle {
     font-size: 18px;
 
@@ -342,15 +319,13 @@ body {
     margin-bottom: 35px;
 }
 
-
 /* =====================================================
    BUTTON
 ===================================================== */
 
 .luxury-btn {
     border:
-        1px solid
-        #d8b66d;
+        1px solid #d8b66d;
 
     background:
         linear-gradient(
@@ -389,14 +364,13 @@ body {
 
     backdrop-filter: blur(8px);
 
-    -webkit-tap-highlight-color:
-        transparent;
+    -webkit-backdrop-filter: blur(8px);
+
+    -webkit-tap-highlight-color: transparent;
 }
 
-
 .luxury-btn:hover {
-    transform:
-        translateY(-3px);
+    transform: translateY(-3px);
 
     box-shadow:
         0 10px 35px
@@ -410,11 +384,9 @@ body {
         );
 }
 
-
 .luxury-btn:active {
     transform: scale(0.97);
 }
-
 
 .sound-note {
     margin-top: 18px;
@@ -427,7 +399,6 @@ body {
         Arial,
         sans-serif;
 }
-
 
 /* =====================================================
    CINEMATIC
@@ -444,7 +415,6 @@ body {
         );
 }
 
-
 .cinematic-overlay {
     position: absolute;
 
@@ -458,7 +428,6 @@ body {
         );
 }
 
-
 .cinematic-content {
     position: relative;
 
@@ -466,7 +435,6 @@ body {
 
     max-width: 720px;
 }
-
 
 .cinematic-content h1 {
     font-size:
@@ -483,7 +451,6 @@ body {
     margin-bottom: 30px;
 }
 
-
 .cinematic-content p:not(.small-title):not(.highlight) {
     font-size: 19px;
 
@@ -494,7 +461,6 @@ body {
     margin-bottom: 25px;
 }
 
-
 .highlight {
     font-size: 28px;
 
@@ -504,7 +470,6 @@ body {
 
     margin-bottom: 35px;
 }
-
 
 .gold-line {
     width: 90px;
@@ -523,7 +488,6 @@ body {
         );
 }
 
-
 /* =====================================================
    SECTION
 ===================================================== */
@@ -537,7 +501,6 @@ body {
 
     text-align: center;
 }
-
 
 .section-title {
     font-size:
@@ -556,7 +519,6 @@ body {
     margin-bottom: 12px;
 }
 
-
 .section-subtitle {
     color: #ad9990;
 
@@ -564,7 +526,6 @@ body {
 
     margin-bottom: 45px;
 }
-
 
 /* =====================================================
    LETTER CARDS
@@ -602,14 +563,13 @@ body {
         rgba(0, 0, 0, 0.25);
 
     backdrop-filter: blur(12px);
-}
 
+    -webkit-backdrop-filter: blur(12px);
+}
 
 .letter-card.reverse {
-    flex-direction:
-        row-reverse;
+    flex-direction: row-reverse;
 }
-
 
 .letter-photo {
     width: 40%;
@@ -618,7 +578,6 @@ body {
 
     overflow: hidden;
 }
-
 
 .letter-photo img {
     width: 100%;
@@ -632,20 +591,16 @@ body {
         transform 0.6s ease;
 }
 
-
 .letter-card:hover
 .letter-photo img {
-    transform:
-        scale(1.05);
+    transform: scale(1.05);
 }
-
 
 .letter-content {
     flex: 1;
 
     padding: 38px;
 }
-
 
 .letter-from {
     color: #d9b56c;
@@ -663,7 +618,6 @@ body {
     margin-bottom: 15px;
 }
 
-
 .letter-content h3 {
     color: #f4d99c;
 
@@ -676,7 +630,6 @@ body {
     line-height: 1.3;
 }
 
-
 .letter-content p:not(.letter-from) {
     color: #d6c5bd;
 
@@ -686,7 +639,6 @@ body {
 
     margin-bottom: 16px;
 }
-
 
 .letter-sign {
     margin-top: 25px;
@@ -698,11 +650,9 @@ body {
     font-size: 17px;
 }
 
-
 .continue-area {
     margin-top: 45px;
 }
-
 
 /* =====================================================
    FAMILY
@@ -711,7 +661,6 @@ body {
 .family-container {
     max-width: 900px;
 }
-
 
 .family-frame {
     position: relative;
@@ -735,13 +684,10 @@ body {
         0 25px 70px
         rgba(0, 0, 0, 0.45);
 
-    background:
-        #120910;
+    background: #120910;
 
-    aspect-ratio:
-        16 / 10;
+    aspect-ratio: 16 / 10;
 }
-
 
 .family-frame img {
     width: 100%;
@@ -754,7 +700,6 @@ body {
     transition:
         opacity 0.35s ease;
 }
-
 
 .photo-overlay {
     position: absolute;
@@ -771,11 +716,9 @@ body {
         );
 }
 
-
 .slide-info {
     min-height: 70px;
 }
-
 
 .slide-text {
     color: #e6d2c8;
@@ -786,7 +729,6 @@ body {
 
     margin-bottom: 10px;
 }
-
 
 .slide-number {
     color: #c7a55f;
@@ -800,7 +742,6 @@ body {
     letter-spacing: 2px;
 }
 
-
 .slide-controls {
     display: flex;
 
@@ -811,7 +752,6 @@ body {
     margin:
         25px 0 30px;
 }
-
 
 .circle-btn {
     width: 50px;
@@ -835,17 +775,20 @@ body {
     transition:
         transform 0.3s ease,
         background 0.3s ease;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
-
 .circle-btn:hover {
-    transform:
-        scale(1.08);
+    transform: scale(1.08);
 
     background:
         rgba(120, 65, 80, 0.5);
 }
 
+.circle-btn:active {
+    transform: scale(0.94);
+}
 
 /* =====================================================
    FINAL
@@ -864,7 +807,6 @@ body {
         );
 }
 
-
 .final-glow {
     position: absolute;
 
@@ -881,11 +823,8 @@ body {
         );
 
     animation:
-        finalGlow 5s
-        ease-in-out
-        infinite;
+        finalGlow 5s ease-in-out infinite;
 }
-
 
 @keyframes finalGlow {
 
@@ -899,7 +838,6 @@ body {
     }
 }
 
-
 .final-content {
     position: relative;
 
@@ -908,18 +846,14 @@ body {
     max-width: 750px;
 }
 
-
 .final-flower {
     font-size: 70px;
 
     animation:
-        flowerFloat 4s
-        ease-in-out
-        infinite;
+        flowerFloat 4s ease-in-out infinite;
 
     margin-bottom: 20px;
 }
-
 
 .final-content h1 {
     font-size:
@@ -940,7 +874,6 @@ body {
     margin-bottom: 25px;
 }
 
-
 .final-message {
     color: #d8c4bb;
 
@@ -950,7 +883,6 @@ body {
 
     margin-bottom: 20px;
 }
-
 
 .final-content h2 {
     color: #f1d28a;
@@ -963,7 +895,6 @@ body {
         30px 0;
 }
 
-
 .final-emoji {
     font-size: 28px;
 
@@ -972,11 +903,76 @@ body {
     margin-bottom: 35px;
 }
 
-
 .final-button {
     margin-top: 10px;
 }
 
+/* =====================================================
+PETALS
+===================================================== */
+
+.birthday-petal {
+    position: fixed;
+
+    top: -40px;
+
+    pointer-events: none;
+
+    z-index: 450;
+
+    animation:
+        birthdayFall
+        linear
+        forwards;
+}
+
+@keyframes birthdayFall {
+
+    0% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity: 0;
+    }
+}
+
+/* =====================================================
+   MUSIC ACTIVE ANIMATION
+===================================================== */
+
+.music-btn.music-active {
+    animation:
+        musicPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 0
+            rgba(245, 213, 138, 0);
+    }
+
+    50% {
+        box-shadow:
+            0 0 20px
+            rgba(245, 213, 138, 0.35);
+    }
+}
 
 /* =====================================================
    MOBILE
@@ -1003,8 +999,9 @@ body {
 
     .letter-card,
     .letter-card.reverse {
-        flex-direction:
-            column;
+        flex-direction: column;
+
+        border-radius: 15px;
     }
 
     .letter-photo {
@@ -1016,8 +1013,7 @@ body {
     }
 
     .letter-content {
-        padding:
-            28px 22px;
+        padding: 28px 22px;
     }
 
     .letter-content h3 {
@@ -1029,10 +1025,13 @@ body {
     }
 
     .family-frame {
-        aspect-ratio:
-            4 / 5;
+        aspect-ratio: 4 / 5;
 
         max-height: 70vh;
+    }
+
+    .family-frame img {
+        object-fit: cover;
     }
 
     .final-content h1 {
@@ -1052,9 +1051,8 @@ body {
     }
 }
 
-
 /* =====================================================
-   SMALL PHONES
+   VERY SMALL PHONES
 ===================================================== */
 
 @media (max-width: 380px) {
