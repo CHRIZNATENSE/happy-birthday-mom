@@ -1,357 +1,373 @@
 /* =========================
-   BIRTHDAY SURPRISE
-   Aanie Webb
+BIRTHDAY SURPRISE
+Aanie Webb
 ========================= */
-
 
 /* =========================
-   SCREEN NAVIGATION
+SCREEN NAVIGATION
 ========================= */
 
-const screens = document.querySelectorAll(".screen");
+const screens =
+document.querySelectorAll(".screen");
 
 function showScreen(id) {
 
-    screens.forEach(screen => {
+```
+screens.forEach(screen => {
 
-        screen.classList.add("hidden");
+    screen.classList.add("hidden");
 
-    });
+});
 
-    const target = document.getElementById(id);
+const target =
+    document.getElementById(id);
 
-    target.classList.remove("hidden");
+target.classList.remove("hidden");
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
 
-    createParticles(15);
+createParticles(20);
+```
+
 }
 
-
 /* =========================
-   OPEN SURPRISE
+OPEN SURPRISE
 ========================= */
 
-const openBtn = document.getElementById("openBtn");
+const openBtn =
+document.getElementById("openBtn");
 
 openBtn.addEventListener("click", () => {
 
-    createParticles(50);
+```
+createParticles(60);
 
-    showScreen("intro");
+showScreen("intro");
+```
 
 });
 
-
 /* =========================
-   NEXT BUTTONS
+NEXT BUTTONS
 ========================= */
 
 const nextButtons =
-    document.querySelectorAll(".next-btn");
+document.querySelectorAll(".next-btn");
 
 nextButtons.forEach(button => {
 
-    button.addEventListener("click", () => {
+```
+button.addEventListener("click", () => {
 
-        const nextScreen =
-            button.dataset.next;
+    const nextScreen =
+        button.dataset.next;
 
-        showScreen(nextScreen);
+    showScreen(nextScreen);
 
-    });
+});
+```
 
 });
 
-
 /* =========================
-   FAMILY SLIDESHOW
+FAMILY SLIDESHOW
 ========================= */
 
 const familyImages = [
 
-    "slidefam1.jpg",
-    "slidefam2.jpg",
-    "slidefam3.jpg",
-    "slidefam4.jpg",
-    "slidefam5.jpg"
+```
+"slidefam1.jpg",
+"slidefam2.jpg",
+"slidefam3.jpg",
+"slidefam4.jpg",
+"slidefam5.jpg"
+```
 
 ];
 
 const slideMessages = [
 
-    "Every moment together is a treasure.",
+```
+"Every moment together is a treasure.",
 
-    "The best memories are the ones we make together.",
+"The best memories are the ones we make together.",
 
-    "Through every season, we stay together.",
+"Through every season, we stay together.",
 
-    "Family is where love begins.",
+"Family is where love begins.",
 
-    "And these are the moments we will always remember."
+"And these are the moments we will always remember."
+```
 
 ];
 
 let currentSlide = 0;
 
 const familySlide =
-    document.getElementById("familySlide");
+document.getElementById("familySlide");
 
 const slideText =
-    document.getElementById("slideText");
+document.getElementById("slideText");
 
 const slideNumber =
-    document.getElementById("slideNumber");
-
+document.getElementById("slideNumber");
 
 function updateSlide() {
 
-    familySlide.style.opacity = 0;
+```
+familySlide.style.opacity = 0;
 
-    setTimeout(() => {
 
-        familySlide.src =
-            familyImages[currentSlide];
+setTimeout(() => {
 
-        slideText.textContent =
-            slideMessages[currentSlide];
+    familySlide.src =
+        familyImages[currentSlide];
 
-        slideNumber.textContent =
-            `${currentSlide + 1} / ${familyImages.length}`;
+    slideText.textContent =
+        slideMessages[currentSlide];
 
-        familySlide.style.opacity = 1;
+    slideNumber.textContent =
+        `${currentSlide + 1} / ${familyImages.length}`;
 
-    }, 400);
+    familySlide.style.opacity = 1;
+
+}, 400);
+```
 
 }
 
-
-/* NEXT SLIDE */
-
-document
-    .getElementById("nextSlide")
-    .addEventListener("click", () => {
-
-        currentSlide++;
-
-        if (
-            currentSlide >=
-            familyImages.length
-        ) {
-
-            currentSlide = 0;
-
-        }
-
-        updateSlide();
-
-    });
-
-
-/* PREVIOUS SLIDE */
+/* =========================
+NEXT SLIDE
+========================= */
 
 document
-    .getElementById("prevSlide")
-    .addEventListener("click", () => {
+.getElementById("nextSlide")
+.addEventListener("click", () => {
 
-        currentSlide--;
+```
+    currentSlide++;
 
-        if (currentSlide < 0) {
+    if (
+        currentSlide >=
+        familyImages.length
+    ) {
 
-            currentSlide =
-                familyImages.length - 1;
+        currentSlide = 0;
 
-        }
+    }
 
-        updateSlide();
+    updateSlide();
 
-    });
-
+});
+```
 
 /* =========================
-   AUTOMATIC SLIDESHOW
+PREVIOUS SLIDE
+========================= */
+
+document
+.getElementById("prevSlide")
+.addEventListener("click", () => {
+
+```
+    currentSlide--;
+
+    if (currentSlide < 0) {
+
+        currentSlide =
+            familyImages.length - 1;
+
+    }
+
+    updateSlide();
+
+});
+```
+
+/* =========================
+AUTOMATIC SLIDESHOW
 ========================= */
 
 setInterval(() => {
 
-    const familyScreen =
-        document.getElementById("family");
+```
+const familyScreen =
+    document.getElementById("family");
+
+
+if (
+    !familyScreen.classList.contains("hidden")
+) {
+
+    currentSlide++;
+
 
     if (
-        !familyScreen.classList.contains("hidden")
+        currentSlide >=
+        familyImages.length
     ) {
 
-        currentSlide++;
-
-        if (
-            currentSlide >=
-            familyImages.length
-        ) {
-
-            currentSlide = 0;
-
-        }
-
-        updateSlide();
+        currentSlide = 0;
 
     }
 
+
+    updateSlide();
+
+}
+```
+
 }, 5000);
 
-
 /* =========================
-   GOLD PARTICLES
+GOLD PARTICLES
 ========================= */
 
 function createParticles(amount) {
 
-    const container =
-        document.getElementById("particles");
+```
+const container =
+    document.getElementById("particles");
 
-    for (let i = 0; i < amount; i++) {
 
-        const particle =
-            document.createElement("div");
+for (
+    let i = 0;
+    i < amount;
+    i++
+) {
 
-        particle.classList.add("particle");
+    const particle =
+        document.createElement("div");
 
-        particle.style.left =
-            Math.random() * 100 + "%";
 
-        particle.style.top =
-            Math.random() * 100 + "%";
+    particle.classList.add(
+        "particle"
+    );
 
-        particle.style.animationDelay =
-            Math.random() * 2 + "s";
 
-        particle.style.width =
-            Math.random() * 4 + 2 + "px";
+    particle.style.left =
+        Math.random() * 100 + "%";
 
-        particle.style.height =
-            particle.style.width;
 
-        container.appendChild(particle);
+    particle.style.top =
+        Math.random() * 100 + "%";
 
-        setTimeout(() => {
 
-            particle.remove();
+    particle.style.animationDelay =
+        Math.random() * 2 + "s";
 
-        }, 6000);
 
-    }
+    const size =
+        Math.random() * 4 + 2;
+
+
+    particle.style.width =
+        size + "px";
+
+
+    particle.style.height =
+        size + "px";
+
+
+    container.appendChild(
+        particle
+    );
+
+
+    setTimeout(() => {
+
+        particle.remove();
+
+    }, 6000);
+
+}
+```
 
 }
 
-
 /* =========================
-   INITIAL PARTICLES
+INITIAL PARTICLES
 ========================= */
 
 createParticles(20);
 
-
 /* =========================
-   FINAL PETALS
+FINAL PETALS
 ========================= */
 
 function createPetal() {
 
-    const petal =
-        document.createElement("div");
-
-    petal.innerHTML = "🌸";
-
-    petal.style.position = "fixed";
-
-    petal.style.top = "-30px";
-
-    petal.style.left =
-        Math.random() * 100 + "%";
-
-    petal.style.fontSize =
-        Math.random() * 15 + 12 + "px";
-
-    petal.style.pointerEvents =
-        "none";
-
-    petal.style.zIndex = "20";
-
-    petal.style.animation =
-        `fall ${Math.random() * 5 + 5}s linear`;
-
-    document.body.appendChild(petal);
-
-    setTimeout(() => {
-
-        petal.remove();
-
-    }, 10000);
-
-}
+```
+const petal =
+    document.createElement("div");
 
 
-/* =========================
-   PETAL ANIMATION STYLE
-========================= */
+petal.innerHTML = "🌸";
 
-const style =
-    document.createElement("style");
 
-style.innerHTML = `
+petal.style.position =
+    "fixed";
 
-@keyframes fall {
 
-    0% {
+petal.style.top =
+    "-30px";
 
-        transform:
-            translateY(0)
-            rotate(0deg);
 
-        opacity: 0;
+petal.style.left =
+    Math.random() * 100 + "%";
 
-    }
 
-    10% {
+petal.style.fontSize =
+    Math.random() * 15 + 12 + "px";
 
-        opacity: 1;
 
-    }
+petal.style.pointerEvents =
+    "none";
 
-    100% {
 
-        transform:
-            translateY(110vh)
-            rotate(360deg);
+petal.style.zIndex = "20";
 
-        opacity: 0;
 
-    }
+petal.style.animation =
+    `fall ${Math.random() * 5 + 5}s linear`;
+
+
+document.body.appendChild(
+    petal
+);
+
+
+setTimeout(() => {
+
+    petal.remove();
+
+}, 10000);
+```
 
 }
 
-`;
-
-document.head.appendChild(style);
-
-
 /* =========================
-   PETALS WHEN FINAL OPENS
+PETALS WHEN FINAL OPENS
 ========================= */
 
 setInterval(() => {
 
-    const finalScreen =
-        document.getElementById("final");
+```
+const finalScreen =
+    document.getElementById("final");
 
-    if (
-        !finalScreen.classList.contains("hidden")
-    ) {
 
-        createPetal();
+if (
+    !finalScreen.classList.contains("hidden")
+) {
 
-    }
+    createPetal();
+
+}
+```
 
 }, 700);
