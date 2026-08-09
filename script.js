@@ -6,51 +6,28 @@ AANIE WEBB BIRTHDAY SURPRISE
 SCREEN NAVIGATION
 ===================================== */
 
-const screens =
-document.querySelectorAll(".screen");
+const screens = document.querySelectorAll(".screen");
 
 function showScreen(screenId) {
 
 ```
-const target =
-    document.getElementById(screenId);
-
+const target = document.getElementById(screenId);
 
 if (!target) {
-
-    console.error(
-        "Screen not found:",
-        screenId
-    );
-
+    console.error("Screen not found:", screenId);
     return;
-
 }
 
-
-/* Hide every screen */
-
-screens.forEach(screen => {
-
+screens.forEach(function(screen) {
     screen.classList.add("hidden");
-
 });
 
-
-/* Show requested screen */
-
 target.classList.remove("hidden");
-
-
-/* Scroll to top */
 
 window.scrollTo({
     top: 0,
     behavior: "smooth"
 });
-
-
-/* Add some particles */
 
 createParticles(25);
 ```
@@ -61,22 +38,18 @@ createParticles(25);
 OPENING BUTTON
 ===================================== */
 
-const openButton =
-document.getElementById("openBtn");
+const openButton = document.getElementById("openBtn");
 
 if (openButton) {
 
 ```
-openButton.addEventListener(
-    "click",
-    function () {
+openButton.addEventListener("click", function() {
 
-        createParticles(60);
+    createParticles(60);
 
-        showScreen("intro");
+    showScreen("intro");
 
-    }
-);
+});
 ```
 
 }
@@ -85,34 +58,22 @@ openButton.addEventListener(
 ALL NEXT BUTTONS
 ===================================== */
 
-const nextButtons =
-document.querySelectorAll(
-".next-btn"
-);
+const nextButtons = document.querySelectorAll(".next-btn");
 
-nextButtons.forEach(button => {
+nextButtons.forEach(function(button) {
 
 ```
-button.addEventListener(
-    "click",
-    function () {
+button.addEventListener("click", function() {
 
-        const destination =
-            this.getAttribute(
-                "data-next"
-            );
+    const destination = this.getAttribute("data-next");
 
+    if (destination) {
 
-        if (destination) {
-
-            showScreen(
-                destination
-            );
-
-        }
+        showScreen(destination);
 
     }
-);
+
+});
 ```
 
 });
@@ -152,73 +113,66 @@ const familyMessages = [
 let currentSlide = 0;
 
 const familySlide =
-document.getElementById(
-"familySlide"
-);
+document.getElementById("familySlide");
 
 const slideText =
-document.getElementById(
-"slideText"
-);
+document.getElementById("slideText");
 
 const slideNumber =
-document.getElementById(
-"slideNumber"
-);
+document.getElementById("slideNumber");
 
 function updateSlide() {
 
 ```
-if (!familySlide) return;
-
+if (!familySlide) {
+    return;
+}
 
 familySlide.style.opacity = "0";
 
 
-setTimeout(
-    function () {
+setTimeout(function() {
 
-        familySlide.src =
-            familyImages[
-                currentSlide
-            ];
+    familySlide.src =
+        familyImages[currentSlide];
 
+
+    if (slideText) {
 
         slideText.textContent =
-            familyMessages[
-                currentSlide
-            ];
+            familyMessages[currentSlide];
 
+    }
+
+
+    if (slideNumber) {
 
         slideNumber.textContent =
             `${currentSlide + 1} / ${familyImages.length}`;
 
+    }
 
-        familySlide.style.opacity =
-            "1";
 
-    },
-    400
-);
+    familySlide.style.opacity = "1";
+
+}, 400);
 ```
 
 }
 
 /* =====================================
-NEXT SLIDE
+NEXT SLIDE BUTTON
 ===================================== */
 
 const nextSlideButton =
-document.getElementById(
-"nextSlide"
-);
+document.getElementById("nextSlide");
 
 if (nextSlideButton) {
 
 ```
 nextSlideButton.addEventListener(
     "click",
-    function () {
+    function() {
 
         currentSlide++;
 
@@ -240,20 +194,18 @@ nextSlideButton.addEventListener(
 }
 
 /* =====================================
-PREVIOUS SLIDE
+PREVIOUS SLIDE BUTTON
 ===================================== */
 
 const previousSlideButton =
-document.getElementById(
-"prevSlide"
-);
+document.getElementById("prevSlide");
 
 if (previousSlideButton) {
 
 ```
 previousSlideButton.addEventListener(
     "click",
-    function () {
+    function() {
 
         currentSlide--;
 
@@ -276,43 +228,35 @@ previousSlideButton.addEventListener(
 AUTOMATIC FAMILY SLIDESHOW
 ===================================== */
 
-setInterval(
-function () {
+setInterval(function() {
 
 ```
-    const familyScreen =
-        document.getElementById(
-            "family"
-        );
+const familyScreen =
+    document.getElementById("family");
 
+
+if (
+    familyScreen &&
+    !familyScreen.classList.contains("hidden")
+) {
+
+    currentSlide++;
 
     if (
-        familyScreen &&
-        !familyScreen.classList.contains(
-            "hidden"
-        )
+        currentSlide >=
+        familyImages.length
     ) {
 
-        currentSlide++;
-
-        if (
-            currentSlide >=
-            familyImages.length
-        ) {
-
-            currentSlide = 0;
-
-        }
-
-        updateSlide();
+        currentSlide = 0;
 
     }
 
-},
-5000
+    updateSlide();
+
+}
 ```
 
-);
+}, 5000);
 
 /* =====================================
 GOLD PARTICLES
@@ -322,24 +266,18 @@ function createParticles(amount) {
 
 ```
 const container =
-    document.getElementById(
-        "particles"
-    );
+    document.getElementById("particles");
 
 
-if (!container) return;
+if (!container) {
+    return;
+}
 
 
-for (
-    let i = 0;
-    i < amount;
-    i++
-) {
+for (let i = 0; i < amount; i++) {
 
     const particle =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
 
     particle.className =
@@ -375,14 +313,11 @@ for (
     );
 
 
-    setTimeout(
-        function () {
+    setTimeout(function() {
 
-            particle.remove();
+        particle.remove();
 
-        },
-        6000
-    );
+    }, 6000);
 
 }
 ```
@@ -403,9 +338,7 @@ function createPetal() {
 
 ```
 const petal =
-    document.createElement(
-        "div"
-    );
+    document.createElement("div");
 
 
 petal.textContent = "🌸";
@@ -431,7 +364,8 @@ petal.style.pointerEvents =
     "none";
 
 
-petal.style.zIndex = "20";
+petal.style.zIndex =
+    "20";
 
 
 petal.style.animation =
@@ -443,14 +377,11 @@ document.body.appendChild(
 );
 
 
-setTimeout(
-    function () {
+setTimeout(function() {
 
-        petal.remove();
+    petal.remove();
 
-    },
-    10000
-);
+}, 10000);
 ```
 
 }
@@ -459,29 +390,21 @@ setTimeout(
 CREATE PETALS ONLY ON FINAL PAGE
 ===================================== */
 
-setInterval(
-function () {
+setInterval(function() {
 
 ```
-    const finalScreen =
-        document.getElementById(
-            "final"
-        );
+const finalScreen =
+    document.getElementById("final");
 
 
-    if (
-        finalScreen &&
-        !finalScreen.classList.contains(
-            "hidden"
-        )
-    ) {
+if (
+    finalScreen &&
+    !finalScreen.classList.contains("hidden")
+) {
 
-        createPetal();
+    createPetal();
 
-    }
-
-},
-700
+}
 ```
 
-);
+}, 700);
