@@ -1,356 +1,604 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Happy Birthday, Mom 🌸</title>
+```
+<meta charset="UTF-8">
 
-    <link rel="stylesheet" href="style.css">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Happy Birthday, Mom 🌸</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+      rel="stylesheet">
+```
+
 </head>
 
 <body>
 
-    <!-- Background -->
-    <div class="background"></div>
+```
+<!-- =========================
+     BACKGROUND
+========================== -->
 
-    <!-- Floating particles -->
-    <div id="particles"></div>
+<div class="background"></div>
 
-    <!-- =========================
-         OPENING SCREEN
-    ========================== -->
+<div id="particles"></div>
 
-    <section id="opening" class="screen active">
 
-        <div class="opening-content">
+<!-- =========================
+     OPENING SCREEN
+========================== -->
 
-            <p class="small-text">
-                A little surprise awaits you...
-            </p>
+<section id="opening" class="screen active">
 
-            <div class="gold-line"></div>
+    <div class="opening-content">
 
-            <h1>
-                Happy Birthday
-            </h1>
+        <p class="small-text">
+            A little surprise awaits you...
+        </p>
+
+        <div class="gold-line"></div>
+
+        <h1>
+            Happy Birthday
+        </h1>
+
+        <h2>
+            Mom
+        </h2>
+
+        <p class="subtitle">
+            Aanie Webb
+        </p>
+
+        <button id="openBtn">
+
+            <span>
+                Open Your Surprise
+            </span>
+
+            <span>
+                ✦
+            </span>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     INTRO
+========================== -->
+
+<section id="intro" class="screen hidden">
+
+    <div class="content">
+
+        <p class="eyebrow">
+            FOR THE HEART OF OUR FAMILY
+        </p>
+
+        <h1>
+            To the woman who<br>
+            means everything to us
+        </h1>
+
+        <div class="gold-line"></div>
+
+        <p class="intro-text">
+
+            Today isn't just another birthday.
+
+            It's a celebration of you,
+            the love you've given,
+            the memories you've created,
+            and the family you've built.
+
+        </p>
+
+        <button class="next-btn"
+                data-next="letter">
+
+            Continue ✦
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     LETTER
+========================== -->
+
+<section id="letter" class="screen hidden">
+
+    <div class="letter-container">
+
+        <p class="eyebrow">
+            A LETTER FOR YOU
+        </p>
+
+        <div class="letter-card">
 
             <h2>
-                Mom
+                Dear Mom,
             </h2>
 
-            <p class="subtitle">
-                Aanie Webb
+            <p>
+
+                Happy Birthday to one of the most important
+                people in our lives.
+
             </p>
 
-            <button id="openBtn">
-                <span>Open Your Surprise</span>
-                <span>✦</span>
-            </button>
+            <p>
+
+                Thank you for all the love, sacrifices,
+                patience, and strength you've given our family.
+                There are so many things we may not always say,
+                but we hope you know how much you are loved
+                and appreciated.
+
+            </p>
+
+            <p>
+
+                Every laugh, every meal, every little moment
+                and every memory we've shared is something
+                we will always treasure.
+
+            </p>
+
+            <p>
+
+                Today is your day.
+
+                You deserve happiness, peace, love,
+                and all the beautiful things life has to offer.
+
+            </p>
+
+            <p class="signature">
+
+                We love you always. ❤️
+
+            </p>
+
+            <p class="signature-name">
+
+                — Your Family
+
+            </p>
 
         </div>
 
-    </section>
+        <button class="next-btn"
+                data-next="memories">
+
+            See Our Memories ✦
+
+        </button>
+
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         INTRO
-    ========================== -->
+<!-- =========================
+     MEMORIES
+========================== -->
 
-    <section id="intro" class="screen hidden">
+<section id="memories" class="screen hidden">
 
-        <div class="content">
+    <div class="content wide">
 
-            <p class="eyebrow">
-                FOR THE HEART OF OUR FAMILY
+        <p class="eyebrow">
+            MOMENTS WE TREASURE
+        </p>
+
+        <h1>
+            Our Beautiful Memories
+        </h1>
+
+        <div class="gold-line"></div>
+
+
+        <div class="gallery">
+
+            <div class="photo-card large">
+                <img src="aanie1.jpg"
+                     alt="Aanie">
+            </div>
+
+            <div class="photo-card">
+                <img src="aanie2.jpg"
+                     alt="Aanie">
+            </div>
+
+            <div class="photo-card">
+                <img src="chris1.jpg"
+                     alt="Chris">
+            </div>
+
+            <div class="photo-card">
+                <img src="chris2.jpg"
+                     alt="Chris">
+            </div>
+
+            <div class="photo-card">
+                <img src="eli1.jpg"
+                     alt="Eli">
+            </div>
+
+            <div class="photo-card">
+                <img src="eli2.jpg"
+                     alt="Eli">
+            </div>
+
+            <div class="photo-card">
+                <img src="eli3.jpg"
+                     alt="Eli">
+            </div>
+
+            <div class="photo-card">
+                <img src="kuya1.jpg"
+                     alt="Kuya">
+            </div>
+
+            <div class="photo-card">
+                <img src="kuya2.jpg"
+                     alt="Kuya">
+            </div>
+
+            <div class="photo-card">
+                <img src="sister1.jpg"
+                     alt="Sister">
+            </div>
+
+            <div class="photo-card">
+                <img src="sister2.jpg"
+                     alt="Sister">
+            </div>
+
+            <div class="photo-card">
+                <img src="sister3.jpg"
+                     alt="Sister">
+            </div>
+
+            <div class="photo-card">
+                <img src="mon1.jpg"
+                     alt="Mom">
+            </div>
+
+            <div class="photo-card">
+                <img src="ramilyn1.jpg"
+                     alt="Ramilyn">
+            </div>
+
+            <div class="photo-card">
+                <img src="ramilyn2.jpg"
+                     alt="Ramilyn">
+            </div>
+
+            <div class="photo-card">
+                <img src="ricky1.jpg"
+                     alt="Ricky">
+            </div>
+
+        </div>
+
+
+        <button class="next-btn"
+                data-next="may-amor">
+
+            A Message For Mom ✦
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MAY AMOR MESSAGE
+========================== -->
+
+<section id="may-amor" class="screen hidden">
+
+    <div class="personal-message-container">
+
+        <p class="eyebrow">
+            A MESSAGE FROM THE FAMILY
+        </p>
+
+
+        <div class="personal-photo-wrapper">
+
+            <div class="personal-photo-frame">
+
+                <img src="sister1.jpg"
+                     alt="May Amor">
+
+            </div>
+
+        </div>
+
+
+        <div class="personal-card">
+
+            <p class="personal-name">
+                May Amor
             </p>
 
             <h1>
-                To the woman who<br>
-                means everything to us
+                Happy Birthday! 🌸
             </h1>
 
             <div class="gold-line"></div>
 
-            <p class="intro-text">
-                Today isn't just another birthday.
-                It's a celebration of you,
-                the love you've given,
-                the memories you've created,
-                and the family you've built.
+            <p class="personal-letter">
+
+                To the most generous and selfless
+                person I've ever known,
+
             </p>
 
-            <button class="next-btn" data-next="letter">
-                Continue ✦
-            </button>
+            <p class="personal-highlight">
+
+                Happy happy birthday. ❤️
+
+            </p>
+
+            <p class="personal-letter">
+
+                You deserve all the love in the world.
+
+            </p>
+
+            <p class="personal-love">
+                With all my love. ❤️
+            </p>
 
         </div>
 
-    </section>
+
+        <button class="next-btn"
+                data-next="chris-message">
+
+            Another Message ✦
+
+        </button>
+
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         LETTER
-    ========================== -->
+<!-- =========================
+     CHRIS MESSAGE
+========================== -->
 
-    <section id="letter" class="screen hidden">
+<section id="chris-message" class="screen hidden">
 
-        <div class="letter-container">
+    <div class="personal-message-container">
 
-            <p class="eyebrow">
-                A LETTER FOR YOU
-            </p>
+        <p class="eyebrow">
+            A MESSAGE FROM YOUR SON
+        </p>
 
-            <div class="letter-card">
 
-                <h2>
-                    Dear Mom,
-                </h2>
+        <div class="personal-photo-wrapper">
 
-                <p>
-                    Happy Birthday to one of the most important
-                    people in our lives.
-                </p>
+            <div class="personal-photo-frame">
 
-                <p>
-                    Thank you for all the love, sacrifices,
-                    patience, and strength you've given our family.
-                    There are so many things we may not always say,
-                    but we hope you know how much you are loved
-                    and appreciated.
-                </p>
-
-                <p>
-                    Every laugh, every meal, every little moment
-                    and every memory we've shared is something
-                    we will always treasure.
-                </p>
-
-                <p>
-                    Today is your day.
-                    You deserve happiness, peace, love,
-                    and all the beautiful things life has to offer.
-                </p>
-
-                <p class="signature">
-                    We love you always. ❤️
-                </p>
-
-                <p class="signature-name">
-                    — Your Family
-                </p>
+                <img src="chris1.jpg"
+                     alt="Chris">
 
             </div>
 
-            <button class="next-btn" data-next="memories">
-                See Our Memories ✦
-            </button>
-
         </div>
 
-    </section>
 
+        <div class="personal-card">
 
-    <!-- =========================
-         MEMORIES
-    ========================== -->
-
-    <section id="memories" class="screen hidden">
-
-        <div class="content wide">
-
-            <p class="eyebrow">
-                MOMENTS WE TREASURE
+            <p class="personal-name">
+                Chris
             </p>
 
             <h1>
-                Our Beautiful Memories
+                Happy Birthday, Mi! ❤️
             </h1>
 
             <div class="gold-line"></div>
 
-            <div class="gallery">
 
-                <div class="photo-card large">
-                    <img src="aanie1.jpg" alt="Aanie">
-                </div>
+            <p class="personal-letter">
 
-                <div class="photo-card">
-                    <img src="aanie2.jpg" alt="Aanie">
-                </div>
+                Thank you for always guiding me
+                in my decisions, taking care of us,
+                being a wise mom and giving us such
+                a comfortable and loving life.
 
-                <div class="photo-card">
-                    <img src="chris1.jpg" alt="Chris">
-                </div>
+            </p>
 
-                <div class="photo-card">
-                    <img src="chris2.jpg" alt="Chris">
-                </div>
+            <p class="personal-letter">
 
-                <div class="photo-card">
-                    <img src="eli1.jpg" alt="Eli">
-                </div>
+                Your strength, patience, and endless
+                sacrifices mean the world to us.
 
-                <div class="photo-card">
-                    <img src="eli2.jpg" alt="Eli">
-                </div>
+            </p>
 
-                <div class="photo-card">
-                    <img src="eli3.jpg" alt="Eli">
-                </div>
+            <p class="personal-letter">
 
-                <div class="photo-card">
-                    <img src="kuya1.jpg" alt="Kuya">
-                </div>
+                Even if we don't say it enough,
+                we see everything you do for our family.
 
-                <div class="photo-card">
-                    <img src="kuya2.jpg" alt="Kuya">
-                </div>
+            </p>
 
-                <div class="photo-card">
-                    <img src="sister1.jpg" alt="Sister">
-                </div>
+            <p class="personal-love">
 
-                <div class="photo-card">
-                    <img src="sister2.jpg" alt="Sister">
-                </div>
+                I love you. ❤️
 
-                <div class="photo-card">
-                    <img src="sister3.jpg" alt="Sister">
-                </div>
+            </p>
 
-                <div class="photo-card">
-                    <img src="mon1.jpg" alt="Family">
-                </div>
+        </div>
 
-                <div class="photo-card">
-                    <img src="ramilyn1.jpg" alt="Ramilyn">
-                </div>
 
-                <div class="photo-card">
-                    <img src="ramilyn2.jpg" alt="Ramilyn">
-                </div>
+        <button class="next-btn"
+                data-next="family">
 
-                <div class="photo-card">
-                    <img src="ricky1.jpg" alt="Ricky">
-                </div>
+            Our Family ✦
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FAMILY SLIDESHOW
+========================== -->
+
+<section id="family" class="screen hidden">
+
+    <div class="family-container">
+
+        <p class="eyebrow">
+            TOGETHER IS OUR FAVORITE PLACE
+        </p>
+
+        <h1>
+            Our Family
+        </h1>
+
+        <div class="gold-line"></div>
+
+
+        <div class="slideshow">
+
+            <img id="familySlide"
+                 src="slidefam1.jpg"
+                 alt="Family">
+
+            <div class="slide-overlay">
+
+                <p id="slideText">
+
+                    Every moment together
+                    is a treasure.
+
+                </p>
 
             </div>
 
-            <button class="next-btn" data-next="family">
-                Our Family ✦
+        </div>
+
+
+        <div class="slide-controls">
+
+            <button id="prevSlide">
+                ‹
+            </button>
+
+            <span id="slideNumber">
+                1 / 5
+            </span>
+
+            <button id="nextSlide">
+                ›
             </button>
 
         </div>
 
-    </section>
+
+        <button class="next-btn"
+                data-next="final">
+
+            One More Thing... ✦
+
+        </button>
+
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         FAMILY SLIDESHOW
-    ========================== -->
+<!-- =========================
+     FINAL SURPRISE
+========================== -->
 
-    <section id="family" class="screen hidden">
+<section id="final" class="screen hidden">
 
-        <div class="family-container">
+    <div class="final-content">
 
-            <p class="eyebrow">
-                TOGETHER IS OUR FAVORITE PLACE
-            </p>
-
-            <h1>
-                Our Family
-            </h1>
-
-            <div class="gold-line"></div>
-
-            <div class="slideshow">
-
-                <img id="familySlide" src="slidefam1.jpg" alt="Family">
-
-                <div class="slide-overlay">
-
-                    <p id="slideText">
-                        Every moment together is a treasure.
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="slide-controls">
-
-                <button id="prevSlide">‹</button>
-
-                <span id="slideNumber">1 / 5</span>
-
-                <button id="nextSlide">›</button>
-
-            </div>
-
-            <button class="next-btn" data-next="final">
-                One More Thing... ✦
-            </button>
-
+        <div class="flower">
+            🌸
         </div>
 
-    </section>
+        <p class="eyebrow">
+            WITH ALL OUR LOVE
+        </p>
+
+        <h1>
+            Happy Birthday,
+        </h1>
+
+        <h2>
+            Mom
+        </h2>
+
+        <div class="gold-line"></div>
+
+        <p class="final-message">
+
+            Thank you for being the heart,
+            the strength, and the love
+            that keeps our family together.
+
+        </p>
+
+        <p class="final-message">
+
+            May this year bring you
+            countless reasons to smile,
+            beautiful memories,
+            and all the happiness
+            you deserve.
+
+        </p>
+
+        <h3>
+            We love you, Aanie. ❤️
+        </h3>
+
+        <div class="petals"></div>
+
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         FINAL SURPRISE
-    ========================== -->
-
-    <section id="final" class="screen hidden">
-
-        <div class="final-content">
-
-            <div class="flower">🌸</div>
-
-            <p class="eyebrow">
-                WITH ALL OUR LOVE
-            </p>
-
-            <h1>
-                Happy Birthday,
-            </h1>
-
-            <h2>
-                Mom
-            </h2>
-
-            <div class="gold-line"></div>
-
-            <p class="final-message">
-                Thank you for being the heart,
-                the strength, and the love
-                that keeps our family together.
-            </p>
-
-            <p class="final-message">
-                May this year bring you
-                countless reasons to smile,
-                beautiful memories,
-                and all the happiness you deserve.
-            </p>
-
-            <h3>
-                We love you, Aanie. ❤️
-            </h3>
-
-            <div class="petals"></div>
-
-        </div>
-
-    </section>
-
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
+```
 
 </body>
 </html>
