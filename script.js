@@ -1,47 +1,43 @@
-/* =====================================================
-AANIE WEBB BIRTHDAY SURPRISE
-CLEAN + MOBILE + MESSENGER FRIENDLY
-===================================================== */
+/* AANIE WEBB BIRTHDAY SURPRISE
+SIMPLE + STABLE VERSION
+*/
 
-/* =====================================================
+/* ================================
 SCREEN NAVIGATION
-===================================================== */
+================================ */
 
 var screens = document.querySelectorAll(".screen");
 
-function showScreen(screenId) {
+function showScreen(id) {
 
 ```
-var target = document.getElementById(screenId);
+var target = document.getElementById(id);
 
 if (!target) {
-    console.error("Screen not found:", screenId);
+    console.log("Screen not found: " + id);
     return;
 }
 
-screens.forEach(function(screen) {
-    screen.classList.add("hidden");
-});
+for (var i = 0; i < screens.length; i++) {
+    screens[i].classList.add("hidden");
+}
 
 target.classList.remove("hidden");
 
-window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-});
+window.scrollTo(0, 0);
 
-createParticles(35);
+createParticles(30);
 
-if (screenId === "final") {
+if (id === "final") {
     startFinalSurprise();
 }
 ```
 
 }
 
-/* =====================================================
+/* ================================
 PARTICLES
-===================================================== */
+================================ */
 
 function createParticles(amount) {
 
@@ -64,24 +60,20 @@ for (var i = 0; i < amount; i++) {
     particle.style.top =
         Math.random() * 100 + "%";
 
-    var size =
-        Math.random() * 4 + 2;
+    var size = Math.random() * 4 + 2;
 
-    particle.style.width =
-        size + "px";
-
-    particle.style.height =
-        size + "px";
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
 
     particle.style.animationDelay =
         Math.random() * 2 + "s";
 
     container.appendChild(particle);
 
-    setTimeout(function(p) {
+    setTimeout(function(element) {
 
-        if (p && p.parentNode) {
-            p.parentNode.removeChild(p);
+        if (element && element.parentNode) {
+            element.parentNode.removeChild(element);
         }
 
     }, 6000, particle);
@@ -90,14 +82,59 @@ for (var i = 0; i < amount; i++) {
 
 }
 
-/* =====================================================
-MUSIC
-MUSIC IS OPTIONAL
-IT WILL NEVER BLOCK THE PAGE
-===================================================== */
+/* ================================
+OPEN BUTTON
+================================ */
+
+var openButton = document.getElementById("openBtn");
+
+if (openButton) {
+
+```
+openButton.onclick = function() {
+
+    showScreen("intro");
+
+    createParticles(100);
+
+    startMusic();
+
+};
+```
+
+}
+
+/* ================================
+NEXT BUTTONS
+================================ */
+
+var nextButtons =
+document.querySelectorAll(".next-btn");
+
+for (var n = 0; n < nextButtons.length; n++) {
+
+```
+nextButtons[n].onclick = function() {
+
+    var destination =
+        this.getAttribute("data-next");
+
+    if (destination) {
+        showScreen(destination);
+    }
+};
+```
+
+}
+
+/* ================================
+SIMPLE BACKGROUND MUSIC
+================================ */
 
 var audioContext = null;
+
 var musicPlaying = false;
+
 var musicTimer = null;
 
 function startMusic() {
@@ -114,7 +151,6 @@ try {
         window.webkitAudioContext;
 
     if (!AudioContext) {
-        console.log("Web Audio not supported.");
         return;
     }
 
@@ -124,29 +160,21 @@ try {
 
     if (audioContext.state === "suspended") {
 
-        audioContext.resume().catch(function(error) {
-
-            console.log(
-                "Audio resume blocked:",
-                error
-            );
-
+        audioContext.resume().catch(function() {
+            console.log("Audio blocked by browser.");
         });
 
     }
 
     musicPlaying = true;
 
-    playMelody();
-
     updateMusicButton();
+
+    playMusicLoop();
 
 } catch (error) {
 
-    console.log(
-        "Music unavailable:",
-        error
-    );
+    console.log("Music unavailable.");
 
 }
 ```
@@ -179,19 +207,15 @@ if (!button) {
 }
 
 if (musicPlaying) {
-    button.innerHTML = "♫";
+    button.textContent = "♫";
 } else {
-    button.innerHTML = "🔇";
+    button.textContent = "🔇";
 }
 ```
 
 }
 
-function playNote(
-frequency,
-duration,
-delay
-) {
+function playTone(frequency, startDelay) {
 
 ```
 if (!audioContext || !musicPlaying) {
@@ -208,29 +232,9 @@ try {
 
     oscillator.type = "sine";
 
-    oscillator.frequency.setValueAtTime(
-        frequency,
-        audioContext.currentTime + delay
-    );
+    oscillator.frequency.value = frequency;
 
-    gain.gain.setValueAtTime(
-        0,
-        audioContext.currentTime + delay
-    );
-
-    gain.gain.linearRampToValueAtTime(
-        0.035,
-        audioContext.currentTime +
-        delay +
-        0.08
-    );
-
-    gain.gain.linearRampToValueAtTime(
-        0,
-        audioContext.currentTime +
-        delay +
-        duration
-    );
+    gain.gain.value = 0.025;
 
     oscillator.connect(gain);
 
@@ -238,71 +242,69 @@ try {
         audioContext.destination
     );
 
-    oscillator.start(
-        audioContext.currentTime + delay
+    var startTime =
+        audioContext.currentTime +
+        startDelay;
+
+    oscillator.start(startTime);
+
+    gain.gain.setValueAtTime(
+        0.025,
+        startTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        startTime + 1.5
     );
 
     oscillator.stop(
-        audioContext.currentTime +
-        delay +
-        duration
+        startTime + 1.5
     );
 
 } catch (error) {
 
-    console.log(
-        "Note error:",
-        error
-    );
+    console.log("Tone unavailable.");
 
 }
 ```
 
 }
 
-function playMelody() {
+function playMusicLoop() {
 
 ```
 if (!musicPlaying) {
     return;
 }
 
-var notes = [
+var melody = [
     261.63,
     329.63,
     392.00,
     523.25,
-    440.00,
     392.00,
     329.63,
-    261.63,
     293.66,
-    392.00,
-    523.25,
     392.00
 ];
 
-for (var i = 0; i < notes.length; i++) {
+for (var i = 0; i < melody.length; i++) {
 
-    playNote(
-        notes[i],
-        1.8,
-        i * 0.8
+    playTone(
+        melody[i],
+        i * 0.7
     );
 
 }
 
 musicTimer = setTimeout(
-    playMelody,
-    10500
+    playMusicLoop,
+    6000
 );
 ```
 
 }
-
-/* =====================================================
-MUSIC BUTTON
-===================================================== */
 
 var musicButton =
 document.getElementById("musicBtn");
@@ -310,105 +312,22 @@ document.getElementById("musicBtn");
 if (musicButton) {
 
 ```
-musicButton.addEventListener(
-    "click",
-    function(event) {
+musicButton.onclick = function() {
 
-        event.preventDefault();
-
-        if (musicPlaying) {
-            stopMusic();
-        } else {
-            startMusic();
-        }
-
+    if (musicPlaying) {
+        stopMusic();
+    } else {
+        startMusic();
     }
-);
+
+};
 ```
 
 }
 
-/* =====================================================
-OPEN SURPRISE
-IMPORTANT FOR MESSENGER
-===================================================== */
-
-var openButton =
-document.getElementById("openBtn");
-
-if (openButton) {
-
-```
-openButton.addEventListener(
-    "click",
-    function(event) {
-
-        event.preventDefault();
-
-        /*
-         * FIRST:
-         * Open the page.
-         *
-         * SECOND:
-         * Try the music.
-         *
-         * Therefore music cannot stop
-         * the birthday page.
-         */
-
-        showScreen("intro");
-
-        createParticles(100);
-
-        try {
-            startMusic();
-        } catch (error) {
-            console.log(
-                "Music failed:",
-                error
-            );
-        }
-
-    }
-);
-```
-
-}
-
-/* =====================================================
-NEXT BUTTONS
-===================================================== */
-
-var nextButtons =
-document.querySelectorAll(".next-btn");
-
-nextButtons.forEach(function(button) {
-
-```
-button.addEventListener(
-    "click",
-    function(event) {
-
-        event.preventDefault();
-
-        var destination =
-            button.getAttribute("data-next");
-
-        if (!destination) {
-            return;
-        }
-
-        showScreen(destination);
-
-    }
-);
-```
-
-});
-
-/* =====================================================
+/* ================================
 FAMILY SLIDESHOW
-===================================================== */
+================================ */
 
 var familyImages = [
 "slidefam1.jpg",
@@ -469,80 +388,72 @@ setTimeout(function() {
 
     familySlide.style.opacity = "1";
 
-}, 350);
+}, 300);
 ```
 
 }
 
-/* =====================================================
+/* ================================
 NEXT SLIDE
-===================================================== */
+================================ */
 
-var nextSlideButton =
+var nextSlide =
 document.getElementById("nextSlide");
 
-if (nextSlideButton) {
+if (nextSlide) {
 
 ```
-nextSlideButton.addEventListener(
-    "click",
-    function(event) {
+nextSlide.onclick = function() {
 
-        event.preventDefault();
+    currentSlide++;
 
-        currentSlide++;
+    if (
+        currentSlide >=
+        familyImages.length
+    ) {
 
-        if (
-            currentSlide >=
-            familyImages.length
-        ) {
-            currentSlide = 0;
-        }
-
-        updateSlide();
+        currentSlide = 0;
 
     }
-);
+
+    updateSlide();
+
+};
 ```
 
 }
 
-/* =====================================================
+/* ================================
 PREVIOUS SLIDE
-===================================================== */
+================================ */
 
-var previousSlideButton =
+var previousSlide =
 document.getElementById("prevSlide");
 
-if (previousSlideButton) {
+if (previousSlide) {
 
 ```
-previousSlideButton.addEventListener(
-    "click",
-    function(event) {
+previousSlide.onclick = function() {
 
-        event.preventDefault();
+    currentSlide--;
 
-        currentSlide--;
+    if (currentSlide < 0) {
 
-        if (currentSlide < 0) {
-
-            currentSlide =
-                familyImages.length - 1;
-
-        }
-
-        updateSlide();
+        currentSlide =
+            familyImages.length - 1;
 
     }
-);
+
+    updateSlide();
+
+};
 ```
 
 }
 
-/* =====================================================
-AUTOMATIC FAMILY SLIDESHOW
-===================================================== */
+/* ================================
+AUTOMATIC SLIDESHOW
+================================ */
 
 setInterval(function() {
 
@@ -570,14 +481,15 @@ if (
     }
 
     updateSlide();
+
 }
 ```
 
 }, 5000);
 
-/* =====================================================
+/* ================================
 FLOWER PETALS
-===================================================== */
+================================ */
 
 function createPetal() {
 
@@ -585,7 +497,7 @@ function createPetal() {
 var petal =
     document.createElement("div");
 
-petal.innerHTML = "🌸";
+petal.textContent = "🌸";
 
 petal.style.position = "fixed";
 
@@ -595,7 +507,7 @@ petal.style.left =
     Math.random() * 100 + "%";
 
 petal.style.fontSize =
-    Math.random() * 18 + 12 + "px";
+    (Math.random() * 18 + 12) + "px";
 
 petal.style.pointerEvents = "none";
 
@@ -626,49 +538,42 @@ setTimeout(function() {
 
 }
 
-/* =====================================================
+/* ================================
 PETAL ANIMATION
-===================================================== */
+================================ */
 
 var petalStyle =
 document.createElement("style");
 
-petalStyle.textContent =
-
-```
+petalStyle.innerHTML =
 "@keyframes birthdayFall {" +
-
 "0% {" +
 "transform: translateY(0) rotate(0deg);" +
 "opacity: 0;" +
 "}" +
-
 "15% {" +
 "opacity: 1;" +
 "}" +
-
 "100% {" +
 "transform: translateY(110vh) rotate(720deg);" +
 "opacity: 0;" +
 "}" +
-
 "}";
-```
 
 document.head.appendChild(
 petalStyle
 );
 
-/* =====================================================
+/* ================================
 FINAL SURPRISE
-===================================================== */
+================================ */
 
 function startFinalSurprise() {
 
 ```
 createParticles(150);
 
-for (var i = 0; i < 35; i++) {
+for (var i = 0; i < 30; i++) {
 
     setTimeout(function() {
 
@@ -681,9 +586,9 @@ for (var i = 0; i < 35; i++) {
 
 }
 
-/* =====================================================
+/* ================================
 REPLAY
-===================================================== */
+================================ */
 
 var replayButton =
 document.getElementById("replayBtn");
@@ -691,28 +596,23 @@ document.getElementById("replayBtn");
 if (replayButton) {
 
 ```
-replayButton.addEventListener(
-    "click",
-    function(event) {
+replayButton.onclick = function() {
 
-        event.preventDefault();
+    currentSlide = 0;
 
-        currentSlide = 0;
+    updateSlide();
 
-        updateSlide();
+    showScreen("opening");
 
-        showScreen("opening");
+    createParticles(80);
 
-        createParticles(80);
-
-    }
-);
+};
 ```
 
 }
 
-/* =====================================================
-INITIAL PARTICLES
-===================================================== */
+/* ================================
+INITIAL
+================================ */
 
 createParticles(25);
